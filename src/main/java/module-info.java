@@ -14,7 +14,6 @@ module com.example.womenshop {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires mysql.connector.j;
-    requires com.example.womenshop;
 
     opens com.example.womenshop to javafx.fxml;
     exports com.example.womenshop;

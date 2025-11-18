@@ -6,6 +6,7 @@ import com.example.womenshop.model.Product;
 
 import com.example.womenshop.service.CategoryService;
 import com.example.womenshop.service.ProductService;
+import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,14 +17,16 @@ import javafx.scene.control.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Function;
 
-public class WomenShopController implements Initializable, SceneAwareController {
+public class ManageProductController implements Initializable, SceneAwareController, TypicalController {
 
     @FXML private ListView<Product> lvProducts;
     @FXML private TextField txtName, txtPrice, txtStock;
     @FXML private ComboBox<Category> cmbCategory;
-    @FXML private Button btnSave, btnDelete, btnFilter, btnReset;
+    @FXML private Button btnSave, btnDelete, btnFilter, btnReset, btnExit;
 
+    private SceneManager sceneManager;
     private ProductService productService;
     private CategoryService categoryService;
 
@@ -52,18 +55,8 @@ public class WomenShopController implements Initializable, SceneAwareController 
         }
     }
 
-
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Category> categories = FXCollections.observableArrayList("Clothes", "Shoes", "Accessory");
-        cmbCategory.setItems(categories);
-
-        fetchProducts();
-
-        lvProducts.getSelectionModel().selectedItemProperty().addListener(
-                e -> displayProductDetails(lvProducts.getSelectionModel().getSelectedItem())
-        );
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
     @FXML
     private void onDelete() {
@@ -80,7 +73,6 @@ public class WomenShopController implements Initializable, SceneAwareController 
         Category category = cmbCategory.getValue();
 
         if (selected == null && category != null) {
-
             List<Product> products = productService.listAllProducts();
             if (products != null) {
                 List<Product> filtered = productService.filterByCategory(category);
@@ -99,10 +91,8 @@ public class WomenShopController implements Initializable, SceneAwareController 
             double price = Double.parseDouble(txtPrice.getText());
             int stock = Integer.parseInt(txtStock.getText());
 
-
-
             if (selected == null) {
-                Product p = new Product(-1, category,name, price, 0, false, stock);
+                Product p = new Product(category,name, price, 0, false, stock);
                 productService.registerProduct(p);
             } else {
                 selected.setName(name);
@@ -128,9 +118,38 @@ public class WomenShopController implements Initializable, SceneAwareController 
         fetchProducts();
     }
 
+    @FXML
+    private void onExit() {
+        sceneManager.show("Menu");
+    }
+
     @Override
     public void setSceneManager(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
+    }
+
+    @Override
+    public void initData() {
+        loadCategories();
+
+        UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName); // on change l'affichage du comboxBox pour les catégories | on affiche uniquement le nom
+        UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")");
+
+        fetchProducts();
+
+        setupListeners();
 
     }
 
+    private void loadCategories() {
+        ObservableList<Category> categories = FXCollections.observableArrayList(categoryService.listAllCategories());
+        cmbCategory.setItems(categories);
+    }
+
+    private void setupListeners() {
+        // Events listener
+        lvProducts.getSelectionModel().selectedItemProperty().addListener(
+                e -> displayProductDetails(lvProducts.getSelectionModel().getSelectedItem())
+        );
+    }
 }

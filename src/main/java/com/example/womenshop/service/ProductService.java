@@ -35,7 +35,7 @@ public class ProductService {
 
     public List<Product> filterByCategory(Category category) {
         return repo.getAllProducts().stream()
-                .filter(p -> p.getCategory().equals(category.getName()))
+                .filter(c -> c.getCategory().getId()== category.getId())
                 .toList();
     }
 }

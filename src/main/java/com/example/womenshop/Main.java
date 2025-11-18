@@ -1,6 +1,7 @@
 package com.example.womenshop;
 
-import com.example.womenshop.controller.WomenShopController;
+import com.example.womenshop.controller.ManageProductController;
+import com.example.womenshop.controller.MenuController;
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.repository.mysql.MySQLCategoryRepository;
 import com.example.womenshop.repository.mysql.MySQLProductRepository;
@@ -14,18 +15,44 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         SceneManager sceneManager = new SceneManager(primaryStage);
+        DBManager db =  new DBManager();
 
-        // Charger toutes les scènes
-        sceneManager.loadScene("main", "/com/example/womenshop/WomenShop.fxml");
-        //sceneManager.loadScene("details", "/com/example/womenshop/ProductDetails.fxml");
 
-        // Injection des dépendances
-        WomenShopController controller = sceneManager.getController("main", WomenShopController.class);
-        controller.setSceneManager(sceneManager); // si tu veux naviguer depuis le controller | cela évite de passer SceneManager en paramètre d'instanciation
-        controller.setProductService(new ProductService(new MySQLProductRepository(new DBManager())));
-        controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(new DBManager())));
+        /*sceneManager.loadAndInitScene(
+                "DisplayProduct",
+                "/com/example/womenshop/DisplayProduct.fxml",
+                DisplayProductController.class,
+                controller -> {
+                    controller.setSceneManager(sceneManager);
+                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
+                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
+                    controller.initData();
+                }
+        );*/
 
-        sceneManager.show("main");
+        sceneManager.loadAndInitScene(
+                "ManageProduct",
+                "/com/example/womenshop/ManageProduct.fxml",
+                ManageProductController.class,
+                controller -> {
+                    controller.setSceneManager(sceneManager);
+                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
+                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
+                    controller.initData();
+                }
+        );
+
+        sceneManager.loadAndInitScene(
+                "Menu",
+                "/com/example/womenshop/Menu.fxml",
+                MenuController.class,
+                controller -> {
+                    controller.setSceneManager(sceneManager);
+                }
+        );
+
+
+        sceneManager.show("Menu");
         primaryStage.setTitle("Women Shop");
         primaryStage.show();
     }

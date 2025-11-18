@@ -52,6 +52,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "ID : " + id + ", Category : " + category.getName() + ", Name : " + name + "Purchase price : " + purchasePrice + "Sale price : " + salePrice + ", Discount price : " + discounted + ", Stock: " + stock;
+        return "ID : " + id + ", Category : " + category.getName() + ", Name : " + name + ", Purchase price : " + purchasePrice + ", Sale price : " + salePrice + ", Discount price : " + discounted + ", Stock: " + stock;
     }
 }

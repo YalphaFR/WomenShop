@@ -21,15 +21,20 @@ public class MySQLProductRepository implements ProductRepository {
     public void addProduct(Product p) {
         String sql = "INSERT INTO products (categories_id, products_name, products_purchase_price, products_sale_price, products_discounted, products_stock) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = db.connect();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            ps.setString(1, p.getCategory().getName());
+            ps.setInt(1, p.getCategory().getId());
             ps.setString(2, p.getName());
             ps.setDouble(3, p.getPurchasePrice());
             ps.setDouble(4, p.getSalePrice());
             ps.setBoolean(5, p.isDiscounted());
             ps.setInt(6, p.getStock());
-            ps.execute();
+            ps.executeUpdate();
+
+            ResultSet keys = ps.getGeneratedKeys();
+            if (keys.next()) {
+                p.setId(keys.getInt(1)); // Met à jour l'objet Product avec l'ID généré
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,10 +55,7 @@ public class MySQLProductRepository implements ProductRepository {
     @Override
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT p.*, c.categories_name AS category_name\n" +
-                "    FROM products p\n" +
-                "    JOIN categories c ON p.categories_id = c.categories_id\n" +
-                "    ORDER BY c.categories_name, p.products_sale_price DESC";
+        String sql = "SELECT *  FROM products p JOIN categories c ON p.categories_id = c.categories_id   ORDER BY c.categories_name, p.products_sale_price DESC;";
 
         try (Connection conn = db.connect();
              Statement stmt = conn.createStatement();
@@ -72,7 +74,7 @@ public class MySQLProductRepository implements ProductRepository {
                         rs.getDouble("products_purchase_price"),
                         rs.getDouble("products_sale_price"),
                         rs.getBoolean("products_discounted"),
-                        rs.getInt("products_ stock")
+                        rs.getInt("products_stock")
                 ));
             }
         } catch (SQLException e) {

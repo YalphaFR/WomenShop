@@ -1,9 +1,7 @@
 package com.example.womenshop.service;
 
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
 import com.example.womenshop.repository.CategoryRepository;
-import com.example.womenshop.repository.ProductRepository;
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class CategoryService {
         repo.addCategory(c);
     }
 
-    public List<Category> listAllProducts() {
+    public List<Category> listAllCategories() {
         return repo.getAllCategories();
     }
 
@@ -34,9 +32,9 @@ public class CategoryService {
         repo.deleteCategory(id);
     }
 
-    /*public List<Product> filterByCategory(Category category) {
-        return repo.getAllProducts().stream()
-                .filter(p -> p.getCategory().equals(category.getName()))
+    public List<Category> filterByCategory(Category category) {
+        return repo.getAllCategories().stream()
+                .filter(c -> c.getName().equals(category.getName()))
                 .toList();
-    }*/
+    }
 }

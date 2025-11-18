@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.example.womenshop.controller.WomenShopController">
+<VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.ManageProductController">
 
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
@@ -20,6 +20,7 @@
 
     <!-- Titre -->
     <Label fx:id="welcomeText" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Bienvenue dans WomenShop !" />
+   <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />
 
     <!-- Liste des produits -->
     <ListView fx:id="lvProducts" prefHeight="200" prefWidth="300" />

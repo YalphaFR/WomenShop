@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class SceneManager {
 
@@ -30,20 +31,44 @@ public class SceneManager {
     }
 
     /**
-     * Affiche une scène déjà chargée
-     * @param name clé de la scène
+     * Encapsule le chargement fichier FXML, chargement des services et initialisation des données
+     * @param key Clé pour identifier la scène
+     * @param fxmlPath chemin du fichier FXML
+     * @param clazz class du controller qui permet de cast le controller récupéré au type correct
+     * @param initializer appliquer une fonction sur le controller chargé
+     * @return
+     * @param <T> le controller en question
+     * @throws IOException
      */
-    public void show(String name) {
-        FXMLLoader loader = loaders.get(name);
-        if (loader == null) {
-            throw new RuntimeException("Scene " + name + " not loaded!");
-        }
+    public <T> T loadAndInitScene(String key, String fxmlPath, Class<T> clazz, Consumer<T> initializer) throws IOException {
+        loadScene(key, fxmlPath);           // charge le FXML
+        T controller = getController(key, clazz); // récupère le controller
+        initializer.accept(controller);     // applique les injections
+        return controller;
+    }
+
+
+
+    /**
+     * Affiche une scène déjà chargée
+     * @param key clé de la scène
+     */
+    public void show(String key) {
+        FXMLLoader loader = loaders.get(key);
+        if (loader == null) throw new RuntimeException("Scene " + key + " not loaded!");
 
         Parent root = loader.getRoot();
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
+
+        Scene scene = primaryStage.getScene();
+        if (scene == null) {
+            primaryStage.setScene(new Scene(root)); // première fois
+        } else {
+            scene.setRoot(root); // réutilise la scène existante
+        }
+
         primaryStage.show();
     }
+
 
     /**
      * Récupère le controller pour injection DI
