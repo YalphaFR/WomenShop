@@ -1,6 +1,7 @@
-package com.example.womenshop.controller;
+package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.SceneManager;
+import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
 
@@ -10,23 +11,18 @@ import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.function.Function;
 
-public class ManageProductController implements Initializable, SceneAwareController, TypicalController {
+public class ManageProductController extends ModuleController {
 
     @FXML private ListView<Product> lvProducts;
     @FXML private TextField txtName, txtPrice, txtStock;
     @FXML private ComboBox<Category> cmbCategory;
     @FXML private Button btnSave, btnDelete, btnFilter, btnReset, btnExit;
 
-    private SceneManager sceneManager;
     private ProductService productService;
     private CategoryService categoryService;
 
@@ -54,9 +50,6 @@ public class ManageProductController implements Initializable, SceneAwareControl
             lvProducts.setItems(FXCollections.observableArrayList(products));
         }
     }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {}
 
     @FXML
     private void onDelete() {
@@ -116,16 +109,6 @@ public class ManageProductController implements Initializable, SceneAwareControl
         txtStock.clear();
 
         fetchProducts();
-    }
-
-    @FXML
-    private void onExit() {
-        sceneManager.show("Menu");
-    }
-
-    @Override
-    public void setSceneManager(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
     }
 
     @Override

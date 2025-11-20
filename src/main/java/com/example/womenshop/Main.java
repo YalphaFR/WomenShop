@@ -1,10 +1,11 @@
 package com.example.womenshop;
 
-import com.example.womenshop.controller.ManageProductController;
-import com.example.womenshop.controller.MenuController;
+import com.example.womenshop.controller.fxml.DisplayProductController;
+import com.example.womenshop.controller.fxml.ManageProductController;
+import com.example.womenshop.controller.fxml.MenuControllerI;
 import com.example.womenshop.dao.DBManager;
-import com.example.womenshop.repository.mysql.MySQLCategoryRepository;
-import com.example.womenshop.repository.mysql.MySQLProductRepository;
+import com.example.womenshop.repository.mysql.MySQLICategoryRepository;
+import com.example.womenshop.repository.mysql.MySQLIProductRepository;
 import com.example.womenshop.service.CategoryService;
 import com.example.womenshop.service.ProductService;
 import javafx.application.Application;
@@ -17,16 +18,23 @@ public class Main extends Application {
         SceneManager sceneManager = new SceneManager(primaryStage);
         DBManager db =  new DBManager();
 
-
-        /*sceneManager.loadAndInitScene(
+        sceneManager.loadAndInitScene(
                 "DisplayProduct",
                 "/com/example/womenshop/DisplayProduct.fxml",
                 DisplayProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
-                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
-                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
-                    controller.initData();
+                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
+                    controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
+                }
+        );
+
+        /*sceneManager.loadAndInitScene(
+                "DisplayShopInformation",
+                "/com/example/womenshop/DisplayShopInformation.fxml",
+                DisplayShopInformationController.class,
+                controller -> {
+                    controller.setSceneManager(sceneManager);
                 }
         );*/
 
@@ -36,21 +44,37 @@ public class Main extends Application {
                 ManageProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
-                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
-                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
-                    controller.initData();
+                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
+                    controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
                 }
         );
 
         sceneManager.loadAndInitScene(
                 "Menu",
                 "/com/example/womenshop/Menu.fxml",
-                MenuController.class,
+                MenuControllerI.class,
+                controller -> {
+                    controller.setSceneManager(sceneManager);
+                }
+        );
+/*
+        sceneManager.loadAndInitScene(
+                "PurchaseProduct",
+                "/com/example/womenshop/PurchaseProduct.fxml",
+                PurchaseProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
                 }
         );
 
+        sceneManager.loadAndInitScene(
+                "SellProduct",
+                "/com/example/womenshop/SellProduct.fxml",
+                SellProductController.class,
+                controller -> {
+                    controller.setSceneManager(sceneManager);
+                }
+        );*/
 
         sceneManager.show("Menu");
         primaryStage.setTitle("Women Shop");

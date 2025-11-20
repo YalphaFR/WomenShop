@@ -2,18 +2,17 @@ package com.example.womenshop.repository.mysql;
 
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.model.Transaction;
-import com.example.womenshop.repository.TransactionRepository;
+import com.example.womenshop.repository.ITransactionRepository;
 
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLTransactionRepository implements TransactionRepository {
+public class MySQLITransactionRepository implements ITransactionRepository {
 
     private final DBManager db;
 
-    public MySQLTransactionRepository(DBManager db) {
+    public MySQLITransactionRepository(DBManager db) {
         this.db = db;
     }
 

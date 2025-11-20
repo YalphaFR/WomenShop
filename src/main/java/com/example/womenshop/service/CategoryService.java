@@ -1,14 +1,14 @@
 package com.example.womenshop.service;
 
 import com.example.womenshop.model.Category;
-import com.example.womenshop.repository.CategoryRepository;
+import com.example.womenshop.repository.ICategoryRepository;
 
 import java.util.List;
 
 public class CategoryService {
-    private final CategoryRepository repo;
+    private final ICategoryRepository repo;
 
-    public CategoryService(CategoryRepository repo) {
+    public CategoryService(ICategoryRepository repo) {
         this.repo = repo;
     }
 

@@ -1,5 +1,5 @@
 package com.example.womenshop.controller;
 
-public interface TypicalController {
+public interface IRefreshableController {
     void initData();
 }

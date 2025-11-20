@@ -4,7 +4,7 @@ import com.example.womenshop.model.Category;
 
 import java.util.List;
 
-public interface CategoryRepository {
+public interface ICategoryRepository {
     void addCategory(Category c);
     void updateCategory(Category c);
     void deleteCategory(int id);

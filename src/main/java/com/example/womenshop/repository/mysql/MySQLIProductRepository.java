@@ -3,17 +3,17 @@ package com.example.womenshop.repository.mysql;
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
-import com.example.womenshop.repository.ProductRepository;
+import com.example.womenshop.repository.IProductRepository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLProductRepository implements ProductRepository {
+public class MySQLIProductRepository implements IProductRepository {
 
     private final DBManager db;
 
-    public MySQLProductRepository(DBManager db) {
+    public MySQLIProductRepository(DBManager db) {
         this.db = db;
     }
 
@@ -55,7 +55,7 @@ public class MySQLProductRepository implements ProductRepository {
     @Override
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT *  FROM products p JOIN categories c ON p.categories_id = c.categories_id   ORDER BY c.categories_name, p.products_sale_price DESC;";
+        String sql = "SELECT * FROM products p JOIN categories c ON p.categories_id = c.categories_id  ORDER BY c.categories_name, p.products_sale_price DESC;";
 
         try (Connection conn = db.connect();
              Statement stmt = conn.createStatement();
@@ -84,9 +84,37 @@ public class MySQLProductRepository implements ProductRepository {
     }
 
     @Override
+    public List<Product> getProductsFilterByCategory(Category category) {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products p JOIN categories c ON p.categories_id = c.categories_id WHERE c.categories_id = ? ORDER BY c.categories_name, p.products_sale_price DESC;";
+
+        try (Connection conn = db.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, category.getId());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                        products.add(new Product(
+                                rs.getInt("products_id"),
+                                category,
+                                rs.getString("products_name"),
+                                rs.getDouble("products_purchase_price"),
+                                rs.getDouble("products_sale_price"),
+                                rs.getBoolean("products_discounted"),
+                                rs.getInt("products_stock")
+                        ));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
+    }
+
+
+    @Override
     public Product getProductById(int id) {
-        String sql = "SELECT p.*, c.* AS categories_name FROM products p " +
-                "JOIN categories c ON p.categories_id = c.categories_id WHERE p.products_id = ?";
+        String sql = "SELECT * FROM products p JOIN categories c ON p.categories_id = c.categories_id WHERE p.products_id = ?;";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -107,7 +135,45 @@ public class MySQLProductRepository implements ProductRepository {
                             rs.getDouble("products_purchase_price"),
                             rs.getDouble("products_sale_price"),
                             rs.getBoolean("products_discounted"),
-                            rs.getInt("products_ stock")
+                            rs.getInt("products_stock")
+                    );
+                } else {
+                    return null; // aucun produit trouvé pour cet id
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null; // en cas d'erreur SQL
+        }
+    }
+
+
+    @Override
+    public Product getProductByName(String name) {
+        String sql = "SELECT * FROM products p " +
+                "JOIN categories c ON p.categories_id = c.categories_id WHERE p.products_name = ?";
+        try (Connection conn = db.connect();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, name);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) { // vérifie s'il y a un résultat
+                    Category category = new Category(
+                            rs.getInt("categories_id"),
+                            rs.getString("categories_name"),
+                            rs.getDouble("categories_discount_rate")
+                    );
+
+                    return new Product(
+                            rs.getInt("products_id"),
+                            category,
+                            rs.getString("products_name"),
+                            rs.getDouble("products_purchase_price"),
+                            rs.getDouble("products_sale_price"),
+                            rs.getBoolean("products_discounted"),
+                            rs.getInt("products_stock")
                     );
                 } else {
                     return null; // aucun produit trouvé pour cet id

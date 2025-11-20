@@ -2,19 +2,18 @@ package com.example.womenshop.repository.mysql;
 
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
-import com.example.womenshop.repository.CategoryRepository;
+import com.example.womenshop.repository.ICategoryRepository;
 
 import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLCategoryRepository implements CategoryRepository {
+public class MySQLICategoryRepository implements ICategoryRepository {
 
     private final DBManager db;
 
-    public MySQLCategoryRepository(DBManager db) {
+    public MySQLICategoryRepository(DBManager db) {
         this.db = db;
     }
 
