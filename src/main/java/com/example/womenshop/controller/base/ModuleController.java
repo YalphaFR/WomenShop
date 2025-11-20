@@ -8,7 +8,7 @@ abstract public class ModuleController extends BaseController implements ISceneA
     public abstract void initData();
 
     @FXML
-    void onExit() {
+    public void onExit() {
         sceneManager.show("Menu");
     }
 
