@@ -8,11 +8,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLITransactionRepository implements ITransactionRepository {
+public class MySQLTransactionRepository implements ITransactionRepository {
 
     private final DBManager db;
 
-    public MySQLITransactionRepository(DBManager db) {
+    public MySQLTransactionRepository(DBManager db) {
         this.db = db;
     }
 

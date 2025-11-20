@@ -9,11 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLIProductRepository implements IProductRepository {
+public class MySQLProductRepository implements IProductRepository {
 
     private final DBManager db;
 
-    public MySQLIProductRepository(DBManager db) {
+    public MySQLProductRepository(DBManager db) {
         this.db = db;
     }
 

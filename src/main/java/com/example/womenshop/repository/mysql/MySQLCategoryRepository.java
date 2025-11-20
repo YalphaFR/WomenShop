@@ -9,11 +9,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLICategoryRepository implements ICategoryRepository {
+public class MySQLCategoryRepository implements ICategoryRepository {
 
     private final DBManager db;
 
-    public MySQLICategoryRepository(DBManager db) {
+    public MySQLCategoryRepository(DBManager db) {
         this.db = db;
     }
 
