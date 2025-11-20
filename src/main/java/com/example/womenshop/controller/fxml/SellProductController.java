@@ -26,11 +26,6 @@ public class SellProductController extends ModuleController {
     private Label txtPrice, txtStockAvailable;
 
     @FXML
-    void onExit(ActionEvent event) {
-
-    }
-
-    @FXML
     void onReset(ActionEvent event) {
 
     }

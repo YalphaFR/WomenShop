@@ -15,7 +15,6 @@ module com.example.womenshop {
     requires java.sql;
     requires mysql.connector.j;
     requires javafx.base;
-    requires com.example.womenshop;
 
     opens com.example.womenshop to javafx.fxml;
     exports com.example.womenshop;
@@ -27,4 +26,5 @@ module com.example.womenshop {
     opens com.example.womenshop.repository to javafx.fxml;
     exports com.example.womenshop.controller.fxml;
     opens com.example.womenshop.controller.fxml to javafx.fxml;
+    opens com.example.womenshop.controller.base to javafx.fxml;
 }

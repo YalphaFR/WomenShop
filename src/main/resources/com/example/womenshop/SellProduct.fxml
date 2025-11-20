@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane prefHeight="589.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="589.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.SellProductController">
    <children>
       <HBox layoutX="83.0" layoutY="271.0" spacing="10" />
       <Label layoutX="161.0" layoutY="31.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Vendre des produits" />

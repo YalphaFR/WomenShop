@@ -1,6 +1,7 @@
 package com.example.womenshop;
 
 import com.example.womenshop.controller.IRefreshableController;
+import com.example.womenshop.controller.base.ModuleController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,7 +62,7 @@ public class SceneManager {
         Parent root = loader.getRoot();
         Object controller = loader.getController();
 
-        if (controller instanceof IRefreshableController refreshable) {
+        if (controller instanceof ModuleController refreshable) {
             refreshable.initData();
         }
 
