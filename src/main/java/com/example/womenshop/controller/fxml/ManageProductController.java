@@ -5,8 +5,6 @@ import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
 
-import com.example.womenshop.service.CategoryService;
-import com.example.womenshop.service.ProductService;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,18 +21,6 @@ public class ManageProductController extends ModuleController {
     @FXML private ComboBox<Category> cmbCategory;
     @FXML private Button btnSave, btnDelete, btnFilter, btnReset, btnExit;
 
-    private ProductService productService;
-    private CategoryService categoryService;
-
-
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
-
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-
     private void displayProductDetails(Product p) {
         if (p != null) {
             txtName.setText(p.getName());
@@ -44,19 +30,12 @@ public class ManageProductController extends ModuleController {
         }
     }
 
-    private void fetchProducts() {
-        List<Product> products = productService.listAllProducts();
-        if (products != null) {
-            lvProducts.setItems(FXCollections.observableArrayList(products));
-        }
-    }
-
     @FXML
     private void onDelete() {
         Product selected = lvProducts.getSelectionModel().getSelectedItem();
         if (selected != null) {
             productService.removeProduct(selected.getId());
-            fetchProducts();
+            fetchProducts(lvProducts);
         }
     }
 
@@ -108,25 +87,20 @@ public class ManageProductController extends ModuleController {
         txtPrice.clear();
         txtStock.clear();
 
-        fetchProducts();
+        fetchProducts(lvProducts);
     }
 
     @Override
     public void initData() {
-        loadCategories();
+        loadCategories(cmbCategory);
 
         UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName); // on change l'affichage du comboxBox pour les catégories | on affiche uniquement le nom
         UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")");
 
-        fetchProducts();
+        fetchProducts(lvProducts);
 
         setupListeners();
 
-    }
-
-    private void loadCategories() {
-        ObservableList<Category> categories = FXCollections.observableArrayList(categoryService.listAllCategories());
-        cmbCategory.setItems(categories);
     }
 
     private void setupListeners() {

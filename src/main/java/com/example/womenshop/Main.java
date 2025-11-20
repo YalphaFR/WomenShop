@@ -3,6 +3,7 @@ package com.example.womenshop;
 import com.example.womenshop.controller.fxml.DisplayProductController;
 import com.example.womenshop.controller.fxml.ManageProductController;
 import com.example.womenshop.controller.fxml.MenuControllerI;
+import com.example.womenshop.controller.fxml.SellProductController;
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.repository.mysql.MySQLICategoryRepository;
 import com.example.womenshop.repository.mysql.MySQLIProductRepository;
@@ -24,8 +25,8 @@ public class Main extends Application {
                 DisplayProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
-                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
                     controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
                 }
         );
 
@@ -44,8 +45,8 @@ public class Main extends Application {
                 ManageProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
-                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
                     controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
                 }
         );
 
@@ -66,15 +67,17 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                 }
         );
-
+*/
         sceneManager.loadAndInitScene(
                 "SellProduct",
                 "/com/example/womenshop/SellProduct.fxml",
                 SellProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
+                    controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
                 }
-        );*/
+        );
 
         sceneManager.show("Menu");
         primaryStage.setTitle("Women Shop");
