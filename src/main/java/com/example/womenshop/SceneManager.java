@@ -1,5 +1,6 @@
 package com.example.womenshop;
 
+import com.example.womenshop.controller.IRefreshableController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -58,6 +59,11 @@ public class SceneManager {
         if (loader == null) throw new RuntimeException("Scene " + key + " not loaded!");
 
         Parent root = loader.getRoot();
+        Object controller = loader.getController();
+
+        if (controller instanceof IRefreshableController refreshable) {
+            refreshable.initData();
+        }
 
         Scene scene = primaryStage.getScene();
         if (scene == null) {

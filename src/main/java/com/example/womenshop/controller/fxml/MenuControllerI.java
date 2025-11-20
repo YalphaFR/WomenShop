@@ -1,21 +1,15 @@
-package com.example.womenshop.controller;
+package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.SceneManager;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.controller.ISceneAwareController;
+import com.example.womenshop.controller.base.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 
-public class MenuController implements SceneAwareController {
+public class MenuControllerI extends BaseController {
     @FXML
     private Button btnDisplayProduct, btnDisplayShopInformation, btnManageProduct, btnPurchaseProduct, btnSellProduct;
-
-    private SceneManager sceneManager;
-
-    @Override
-    public void setSceneManager(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
-    }
 
     @FXML
     private void onDisplayProduct() {

@@ -2,14 +2,14 @@ package com.example.womenshop.service;
 
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
-import com.example.womenshop.repository.ProductRepository;
+import com.example.womenshop.repository.IProductRepository;
 
 import java.util.List;
 
 public class ProductService {
-    private final ProductRepository repo;
+    private final IProductRepository repo;
 
-    public ProductService(ProductRepository repo) {
+    public ProductService(IProductRepository repo) {
         this.repo = repo;
     }
 
@@ -25,6 +25,10 @@ public class ProductService {
         return repo.getProductById(id);
     }
 
+    public Product findProductByName(String name) {
+        return repo.getProductByName(name);
+    }
+
     public void updateProductDetails(Product p) {
         repo.updateProduct(p);
     }
@@ -34,9 +38,7 @@ public class ProductService {
     }
 
     public List<Product> filterByCategory(Category category) {
-        return repo.getAllProducts().stream()
-                .filter(c -> c.getCategory().getId()== category.getId())
-                .toList();
+        return repo.getProductsFilterByCategory(category);
     }
 }
 

@@ -36,5 +36,3 @@ CREATE TABLE transactions (
                               transactions_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                               FOREIGN KEY (products_id) REFERENCES products(products_id)
 );
-
-
