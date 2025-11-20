@@ -34,10 +34,6 @@ public class DisplayProductController extends ModuleController {
     @FXML
     private TextField txtID,  txtName;
 
-    private ProductService productService;
-    private CategoryService categoryService;
-
-
 
     // EVENTS
 
@@ -48,7 +44,7 @@ public class DisplayProductController extends ModuleController {
         txtName.clear();
         cmbCategory.setValue(null);
 
-        fetchProducts();
+        fetchProducts(lvProducts);
     }
 
     @FXML
@@ -74,27 +70,12 @@ public class DisplayProductController extends ModuleController {
         lvProducts.setItems(FXCollections.observableArrayList(filtered));
     }
 
-    // UTILS
-
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
-
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-
     private void displayProductDetails(Product p) {
         if (p != null) {
             txtID.setText(String.valueOf(p.getId()));
             txtName.setText(p.getName());
             cmbCategory.setValue(p.getCategory());
         }
-    }
-
-    private void loadCategories() {
-        ObservableList<Category> categories = FXCollections.observableArrayList(categoryService.listAllCategories());
-        cmbCategory.setItems(categories);
     }
 
     private void setupListeners() {
@@ -104,21 +85,14 @@ public class DisplayProductController extends ModuleController {
         );
     }
 
-    private void fetchProducts() {
-        List<Product> products = productService.listAllProducts();
-        if (products != null) {
-            lvProducts.setItems(FXCollections.observableArrayList(products));
-        }
-    }
-
     @Override
     public void initData() {
-        loadCategories();
+        loadCategories(cmbCategory);
 
         UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName); // on change l'affichage du comboxBox pour les catégories | on affiche uniquement le nom
-        UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")");
+        UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")" + ", Purchase Price : " + p.getSalePrice() + "$ , Sale Price : " + p.getSalePrice() + "$ , Stock : " + p.getStock() + ", Discounted : " + p.isDiscounted() + ", Stock :" + p.getStock());
 
-        fetchProducts();
+        fetchProducts(lvProducts);
         setupListeners();
 
     }

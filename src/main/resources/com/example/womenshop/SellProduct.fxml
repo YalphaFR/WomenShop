@@ -37,9 +37,9 @@
             <Label prefHeight="25.0" prefWidth="105.0" text="Catégorie:" GridPane.rowIndex="2" />
             <Label text="Prix:" GridPane.rowIndex="3" />
             <Label prefHeight="25.0" prefWidth="152.0" text="Stock disponible:" GridPane.rowIndex="4" />
-            <Label fx:id="txtCategory" prefHeight="25.0" prefWidth="162.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="txtPrice" prefHeight="25.0" prefWidth="164.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="txtStockAvailable" prefHeight="25.0" prefWidth="165.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="lblCategory" prefHeight="25.0" prefWidth="162.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="lblPrice" prefHeight="25.0" prefWidth="164.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lblStockAvailable" prefHeight="25.0" prefWidth="165.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label prefHeight="25.0" prefWidth="148.0" text="ID:" />
             <TextField fx:id="txtID" GridPane.columnIndex="1" />
             <Label prefHeight="25.0" prefWidth="149.0" text="Stock à vendre:" GridPane.rowIndex="5" />
@@ -49,7 +49,7 @@
       <HBox layoutX="76.0" layoutY="530.0" spacing="10">
          <children>
             <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearch" text="Rechercher" />
-            <Button fx:id="btnReset" onAction="#onReset" text="Reset" />
+            <Button fx:id="btnReset" onAction="#onReset" text="Réinitialiser" />
             <Button fx:id="btnSave" onAction="#onSave" text="Vendre" />
          </children>
       </HBox>
