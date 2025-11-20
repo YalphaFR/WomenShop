@@ -5,8 +5,8 @@ import com.example.womenshop.controller.fxml.ManageProductController;
 import com.example.womenshop.controller.fxml.MenuControllerI;
 import com.example.womenshop.controller.fxml.SellProductController;
 import com.example.womenshop.dao.DBManager;
-import com.example.womenshop.repository.mysql.MySQLICategoryRepository;
-import com.example.womenshop.repository.mysql.MySQLIProductRepository;
+import com.example.womenshop.repository.mysql.MySQLCategoryRepository;
+import com.example.womenshop.repository.mysql.MySQLProductRepository;
 import com.example.womenshop.service.CategoryService;
 import com.example.womenshop.service.ProductService;
 import javafx.application.Application;
@@ -25,8 +25,8 @@ public class Main extends Application {
                 DisplayProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
-                    controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
-                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
+                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
                 }
         );
 
@@ -45,8 +45,8 @@ public class Main extends Application {
                 ManageProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
-                    controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
-                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
+                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
                 }
         );
 
@@ -74,8 +74,8 @@ public class Main extends Application {
                 SellProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
-                    controller.setCategoryService(new CategoryService(new MySQLICategoryRepository(db)));
-                    controller.setProductService(new ProductService(new MySQLIProductRepository(db)));
+                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
                 }
         );
 
