@@ -87,12 +87,13 @@ public class DisplayProductController extends ModuleController {
 
     @Override
     public void initData() {
-        loadCategories(cmbCategory);
 
         UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName); // on change l'affichage du comboxBox pour les catégories | on affiche uniquement le nom
         UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")" + ", Purchase Price : " + p.getSalePrice() + "$ , Sale Price : " + p.getSalePrice() + "$ , Stock : " + p.getStock() + ", Discounted : " + p.isDiscounted() + ", Stock :" + p.getStock());
 
+        loadCategories(cmbCategory);
         fetchProducts(lvProducts);
+
         setupListeners();
 
     }
