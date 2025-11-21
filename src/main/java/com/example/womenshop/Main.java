@@ -1,9 +1,7 @@
 package com.example.womenshop;
 
-import com.example.womenshop.controller.fxml.DisplayProductController;
-import com.example.womenshop.controller.fxml.ManageProductController;
-import com.example.womenshop.controller.fxml.MenuController;
-import com.example.womenshop.controller.fxml.SellProductController;
+import com.example.womenshop.controller.fxml.*;
+
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.repository.mysql.MySQLCategoryRepository;
 import com.example.womenshop.repository.mysql.MySQLProductRepository;
@@ -30,14 +28,16 @@ public class Main extends Application {
                 }
         );
 
-        /*sceneManager.loadAndInitScene(
+        sceneManager.loadAndInitScene(
                 "DisplayShopInformation",
                 "/com/example/womenshop/DisplayShopInformation.fxml",
                 DisplayShopInformationController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
+                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
                 }
-        );*/
+        );
 
         sceneManager.loadAndInitScene(
                 "ManageProduct",
@@ -58,16 +58,18 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                 }
         );
-/*
+
         sceneManager.loadAndInitScene(
                 "PurchaseProduct",
                 "/com/example/womenshop/PurchaseProduct.fxml",
                 PurchaseProductController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
+                    controller.setCategoryService(new CategoryService(new MySQLCategoryRepository(db)));
+                    controller.setProductService(new ProductService(new MySQLProductRepository(db)));
                 }
         );
-*/
+
         sceneManager.loadAndInitScene(
                 "SellProduct",
                 "/com/example/womenshop/SellProduct.fxml",
