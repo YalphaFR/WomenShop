@@ -1,14 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.DisplayShopInformationController">
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques du magasin WomenShop" />
+                <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Retour au menu" />
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Vue d'ensemble" />
+                <GridPane hgap="20" vgap="15" style="-fx-background-color: #f5f5f5; -fx-padding: 15;">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="200.0" />
+                        <ColumnConstraints minWidth="150.0" />
+                        <ColumnConstraints minWidth="200.0" />
+                        <ColumnConstraints minWidth="150.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
+                    <children>
+                        <Label text="Total produits en stock:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                        <Label fx:id="lblTotalStock" text="0" style="-fx-font-size: 18px;" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                        <Label text="Valeur totale du stock:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+                        <Label fx:id="lblStockValue" text="0.00 €" style="-fx-font-size: 18px;" GridPane.rowIndex="0" GridPane.columnIndex="3" />
+                        <Label text="Total des ventes:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                        <Label fx:id="lblTotalSales" text="0.00 €" style="-fx-font-size: 18px; -fx-text-fill: green;" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                        <Label text="Total des achats:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+                        <Label fx:id="lblTotalPurchases" text="0.00 €" style="-fx-font-size: 18px; -fx-text-fill: red;" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+                    </children>
+                </GridPane>
+                <Label fx:id="lblNetProfit" text="Bénéfice net: 0.00 €" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;" />
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Historique des transactions" />
+                <TableView fx:id="tvTransactions" prefHeight="250.0">
+                    <columns>
+                        <TableColumn fx:id="colTransactionId" text="ID" prefWidth="50.0" />
+                        <TableColumn fx:id="colProductName" text="Produit" prefWidth="150.0" />
+                        <TableColumn fx:id="colType" text="Type" prefWidth="100.0" />
+                        <TableColumn fx:id="colQuantity" text="Quantité" prefWidth="80.0" />
+                        <TableColumn fx:id="colAmount" text="Montant" prefWidth="100.0" />
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="150.0" />
+                    </columns>
+                </TableView>
+                <Button fx:id="btnRefresh" onAction="#onRefresh" text="Actualiser les données" style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>
+
