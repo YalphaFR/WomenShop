@@ -22,7 +22,7 @@ public class SellProductController extends ModuleController {
     private ListView<Product> lvProducts;
 
     @FXML
-    private Spinner<Product> spinStockToSell;
+    private Spinner<Integer> spinStockToSell;
 
     @FXML private ComboBox<Category> cmbCategory;
 
@@ -40,7 +40,8 @@ public class SellProductController extends ModuleController {
         cmbCategory.setValue(null);
         lblPrice.setText("");
         lblStockAvailable.setText("");
-        //spinStockToSell.setValueFactory(0);
+        spinStockToSell.setValueFactory(null);
+        spinStockToSell.getEditor().clear();
 
         fetchProducts(lvProducts);
     }
@@ -100,6 +101,7 @@ public class SellProductController extends ModuleController {
             cmbCategory.setValue(p.getCategory());
             lblPrice.setText(String.valueOf(p.getSalePrice()));
             lblStockAvailable.setText(String.valueOf(p.getStock()));
+            spinStockToSell.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, p.getStock()));
         }
     }
 }

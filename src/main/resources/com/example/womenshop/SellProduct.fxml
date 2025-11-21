@@ -15,7 +15,7 @@
 <AnchorPane prefHeight="589.0" prefWidth="421.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.SellProductController">
    <children>
       <HBox layoutX="83.0" layoutY="271.0" spacing="10" />
-      <Label layoutX="161.0" layoutY="31.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Vendre des produits" />
+      <Label layoutX="192.0" layoutY="31.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Sell products" />
       <Button fx:id="btnExit" layoutX="216.0" layoutY="66.0" mnemonicParsing="false" onAction="#onExit" text="Exit" />
       <ListView fx:id="lvProducts" layoutX="64.0" layoutY="110.0" prefHeight="146.0" prefWidth="365.0" />
       <GridPane hgap="10" layoutX="76.0" layoutY="290.0" vgap="10">
@@ -33,25 +33,25 @@
             <RowConstraints />
          </rowConstraints>
          <children>
-            <Label text="Nom:" GridPane.rowIndex="1" />
+            <Label text="Name:" GridPane.rowIndex="1" />
             <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label prefHeight="25.0" prefWidth="105.0" text="Catégorie:" GridPane.rowIndex="2" />
-            <Label text="Prix:" GridPane.rowIndex="3" />
-            <Label prefHeight="25.0" prefWidth="152.0" text="Stock disponible:" GridPane.rowIndex="4" />
-            <Label fx:id="lblPrice" prefHeight="25.0" prefWidth="164.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label fx:id="lblStockAvailable" prefHeight="25.0" prefWidth="165.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label prefHeight="25.0" prefWidth="105.0" text="Category:" GridPane.rowIndex="2" />
+            <Label text="Price:" GridPane.rowIndex="3" />
+            <Label prefHeight="25.0" prefWidth="152.0" text="Stock available:" GridPane.rowIndex="4" />
+            <Label fx:id="lblPrice" prefHeight="25.0" prefWidth="164.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="lblStockAvailable" prefHeight="25.0" prefWidth="165.0" text="Null" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label prefHeight="25.0" prefWidth="148.0" text="ID:" />
             <TextField fx:id="txtID" GridPane.columnIndex="1" />
-            <Label prefHeight="25.0" prefWidth="149.0" text="Stock à vendre:" GridPane.rowIndex="5" />
+            <Label prefHeight="25.0" prefWidth="149.0" text="Stock for sale:" GridPane.rowIndex="5" />
             <Spinner fx:id="spinStockToSell" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <ComboBox fx:id="cmbCategory" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <HBox layoutX="76.0" layoutY="530.0" spacing="10">
          <children>
-            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearch" text="Rechercher" />
-            <Button fx:id="btnReset" onAction="#onReset" text="Réinitialiser" />
-            <Button fx:id="btnSave" onAction="#onSell" text="Vendre" />
+            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearch" text="Search" />
+            <Button fx:id="btnReset" onAction="#onReset" text="Reset" />
+            <Button fx:id="btnSell" onAction="#onSell" text="Sell" />
          </children>
       </HBox>
    </children>

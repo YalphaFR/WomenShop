@@ -2,6 +2,7 @@ package com.example.womenshop.repository.mysql;
 
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.model.Category;
+import com.example.womenshop.model.Transaction;
 import com.example.womenshop.repository.ICategoryRepository;
 
 import java.sql.*;
@@ -71,11 +72,7 @@ public class MySQLCategoryRepository implements ICategoryRepository {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                categories.add(new Category(
-                        rs.getInt("categories_id"),
-                        rs.getString("categories_name"),
-                        rs.getDouble("categories_discount_rate")
-                ));
+                categories.add(mapResultSet(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,23 +87,27 @@ public class MySQLCategoryRepository implements ICategoryRepository {
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
+            Category c = null;
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) { // vérifie s'il y a un résultat
-                    return new Category(
-                            rs.getInt("categories_id"),
-                            rs.getString("categories_name"),
-                            rs.getDouble("categories_discount_rate")
-                    );
-                } else {
-                    return null; // aucune catégorie trouvée pour cet id
+                     c = mapResultSet(rs);
                 }
+                return c;
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
             return null; // en cas d'erreur SQL
         }
+    }
+
+    private Category mapResultSet(ResultSet rs) throws SQLException {
+        return new Category(
+                rs.getInt("categories_id"),
+                rs.getString("categories_name"),
+                rs.getDouble("categories_discount_rate")
+        );
     }
 }
 
