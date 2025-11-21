@@ -1,5 +1,6 @@
 package com.example.womenshop.controller.base;
 
+import com.example.womenshop.controller.IRefreshableController;
 import com.example.womenshop.controller.ISceneAwareController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
@@ -14,7 +15,7 @@ import javafx.scene.control.ListView;
 
 import java.util.List;
 
-abstract public class ModuleController extends BaseController implements ISceneAwareController {
+abstract public class ModuleController extends BaseController implements IRefreshableController {
 
     protected ProductService productService;
     protected CategoryService categoryService;
