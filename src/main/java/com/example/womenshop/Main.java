@@ -2,7 +2,7 @@ package com.example.womenshop;
 
 import com.example.womenshop.controller.fxml.DisplayProductController;
 import com.example.womenshop.controller.fxml.ManageProductController;
-import com.example.womenshop.controller.fxml.MenuControllerI;
+import com.example.womenshop.controller.fxml.MenuController;
 import com.example.womenshop.controller.fxml.SellProductController;
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.repository.mysql.MySQLCategoryRepository;
@@ -53,7 +53,7 @@ public class Main extends Application {
         sceneManager.loadAndInitScene(
                 "Menu",
                 "/com/example/womenshop/Menu.fxml",
-                MenuControllerI.class,
+                MenuController.class,
                 controller -> {
                     controller.setSceneManager(sceneManager);
                 }

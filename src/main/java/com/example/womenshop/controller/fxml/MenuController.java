@@ -1,13 +1,11 @@
 package com.example.womenshop.controller.fxml;
 
-import com.example.womenshop.SceneManager;
-import com.example.womenshop.controller.ISceneAwareController;
 import com.example.womenshop.controller.base.BaseController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 
-public class MenuControllerI extends BaseController {
+public class MenuController extends BaseController {
     @FXML
     private Button btnDisplayProduct, btnDisplayShopInformation, btnManageProduct, btnPurchaseProduct, btnSellProduct;
 
