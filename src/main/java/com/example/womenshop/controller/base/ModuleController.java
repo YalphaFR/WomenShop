@@ -4,6 +4,7 @@ import com.example.womenshop.controller.IRefreshableController;
 import com.example.womenshop.controller.ISceneAwareController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
+import com.example.womenshop.service.ShopService;
 import com.example.womenshop.service.TransactionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ abstract public class ModuleController<T> extends BaseController implements IRef
     protected ProductService productService;
     protected CategoryService categoryService;
     protected TransactionService transactionService;
+    protected ShopService shopService;
 
     public abstract void initData();
 
@@ -34,6 +36,10 @@ abstract public class ModuleController<T> extends BaseController implements IRef
 
     public void setTransactionService(TransactionService transactionService) {
         this.transactionService = transactionService;
+    }
+
+    public void setShopService(ShopService shopService) {
+        this.shopService = shopService;
     }
 
     @FXML

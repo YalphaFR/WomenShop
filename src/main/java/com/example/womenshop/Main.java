@@ -5,9 +5,11 @@ import com.example.womenshop.controller.fxml.*;
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.repository.mysql.MySQLCategoryRepository;
 import com.example.womenshop.repository.mysql.MySQLProductRepository;
+import com.example.womenshop.repository.mysql.MySQLShopRepository;
 import com.example.womenshop.repository.mysql.MySQLTransactionRepository;
 import com.example.womenshop.service.CategoryService;
 import com.example.womenshop.service.ProductService;
+import com.example.womenshop.service.ShopService;
 import com.example.womenshop.service.TransactionService;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -23,11 +25,13 @@ public class Main extends Application {
         MySQLCategoryRepository categoryRepository = new MySQLCategoryRepository(db);
         MySQLProductRepository productRepository = new MySQLProductRepository(db);
         MySQLTransactionRepository transactionRepository = new MySQLTransactionRepository(db);
+        MySQLShopRepository  shopRepository = new MySQLShopRepository(db);
 
         // les services
         CategoryService categoryService = new CategoryService(categoryRepository);
         ProductService productService = new ProductService(productRepository);
         TransactionService transactionService = new TransactionService(transactionRepository);
+        ShopService shopService = new ShopService(shopRepository);
 
 
         sceneManager.loadAndInitScene(
@@ -38,6 +42,7 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                     controller.setCategoryService(categoryService);
                     controller.setProductService(productService);
+                    controller.setShopService(shopService);
                 }
         );
 
@@ -49,6 +54,7 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                     controller.setCategoryService(categoryService);
                     controller.setProductService(productService);
+                    controller.setShopService(shopService);
                 }
         );
 
@@ -60,6 +66,7 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                     controller.setCategoryService(categoryService);
                     controller.setProductService(productService);
+                    controller.setShopService(shopService);
                 }
         );
 
@@ -80,6 +87,7 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                     controller.setCategoryService(categoryService);
                     controller.setProductService(productService);
+                    controller.setShopService(shopService);
                 }
         );
 
@@ -92,6 +100,7 @@ public class Main extends Application {
                     controller.setCategoryService(categoryService);
                     controller.setProductService(productService);
                     controller.setTransactionService(transactionService);
+                    controller.setShopService(shopService);
                 }
         );
 
