@@ -1,14 +1,11 @@
 package com.example.womenshop.service;
 
+import com.example.womenshop.service.*;
 import com.example.womenshop.model.Product;
 import com.example.womenshop.model.Transaction;
-import com.example.womenshop.repository.IProductRepository;
 import com.example.womenshop.repository.ITransactionRepository;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class TransactionService {
     private final ITransactionRepository repo;
@@ -27,7 +24,12 @@ public class TransactionService {
     }
 
     public Transaction findTransactionById(int id) {
-        return repo.getTransactionById(id);
+        Transaction transaction = repo.getTransactionById(id);
+
+        if (transaction.getProduct() != null) {
+
+        }
+        return transaction;
     }
 
     public List<Transaction> findTransactionByProductId(int id) {

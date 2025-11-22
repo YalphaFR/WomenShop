@@ -34,21 +34,20 @@ public class Product {
         this.discounted = discounted;
         this.stock = stock;
 
-        //setDiscountPrice();
+        setDiscountPrice();
     }
 
     public Product(Category category, String name, double purchasePrice, double salePrice, boolean discounted, int stock) {
         this(-1, category, name, purchasePrice, salePrice, discounted, stock);
     }
 
-    /*private void setDiscountPrice() {
+    private void setDiscountPrice() {
         switch(category.getName().toLowerCase()) {
-            case "clothes": discounted = purchasePrice * 0.7; break;
-            case "shoes": discounted = purchasePrice * 0.8; break;
-            case "accessory": discounted = purchasePrice * 0.5; break;
-            default: discounted = purchasePrice;
+            case "clothes": salePrice = salePrice * 0.7; break;
+            case "shoes": salePrice = salePrice * 0.8; break;
+            case "accessory": salePrice = salePrice * 0.5; break;
         }
-    }*/
+    }
 
     @Override
     public String toString() {

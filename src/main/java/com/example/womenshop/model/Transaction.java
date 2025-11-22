@@ -25,6 +25,10 @@ public class Transaction {
         this.date = date;
     }
 
+    public Transaction(Product product, TransactionType type, int quantity, double amount, LocalDateTime date) {
+        this(-1,product,type,quantity,amount,date);
+    }
+
     // Getters & setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

@@ -4,6 +4,7 @@ import com.example.womenshop.controller.IRefreshableController;
 import com.example.womenshop.controller.ISceneAwareController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
+import com.example.womenshop.service.TransactionService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,8 @@ abstract public class ModuleController extends BaseController implements IRefres
 
     protected ProductService productService;
     protected CategoryService categoryService;
+    protected TransactionService transactionService;
+
     public abstract void initData();
 
     public void setProductService(ProductService productService) {
@@ -27,6 +30,10 @@ abstract public class ModuleController extends BaseController implements IRefres
 
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
+    }
+
+    public void setTransactionService(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 
     @FXML

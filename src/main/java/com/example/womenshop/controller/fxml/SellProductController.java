@@ -4,12 +4,15 @@ import com.example.womenshop.SceneManager;
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
+import com.example.womenshop.model.Transaction;
+import com.example.womenshop.service.TransactionService;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.awt.event.ActionEvent;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +43,24 @@ public class SellProductController extends ModuleController {
         cmbCategory.setValue(null);
         lblPrice.setText("");
         lblStockAvailable.setText("");
-        spinStockToSell.setValueFactory(null);
-        spinStockToSell.getEditor().clear();
+        spinStockToSell.setValueFactory(null); // ici c'est le pointeur
+        spinStockToSell.getEditor().clear(); // ici c'est l'affichage
 
         fetchProducts(lvProducts);
     }
 
     @FXML
     void onSell() {
+        Product product = lvProducts.getSelectionModel().getSelectedItem();
+        int stockForSale = spinStockToSell.getValue(); // ici on récupère la valeur selectionnée dans le spinner
+        int quantity =  product.getStock() - stockForSale;
+
+        product.setStock(quantity);
+        productService.updateProductDetails(product);
+        Transaction transaction = new Transaction(product, Transaction.TransactionType.SALE, quantity, product.getSalePrice(), LocalDateTime.now());
+        transactionService.registerTransaction(transaction);
+
+        displayProductDetails(product);
 
     }
 
