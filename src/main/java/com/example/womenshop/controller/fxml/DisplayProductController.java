@@ -49,7 +49,6 @@ public class DisplayProductController extends ModuleController {
 
     @FXML
     void onSearch() {
-        Category category = cmbCategory.getValue();
         List<Product> filtered = new ArrayList<>();
         if (!txtID.getText().isEmpty()) {
             Product p = productService.findProductById(Integer.parseInt(txtID.getText()));
@@ -65,7 +64,7 @@ public class DisplayProductController extends ModuleController {
            }
 
         } else if (cmbCategory.getSelectionModel().getSelectedItem() != null) {
-            filtered = productService.filterByCategory(category);
+            filtered = productService.filterByCategory(cmbCategory.getSelectionModel().getSelectedItem());
         }
         lvProducts.setItems(FXCollections.observableArrayList(filtered));
     }
@@ -91,7 +90,7 @@ public class DisplayProductController extends ModuleController {
         UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName); // on change l'affichage du comboxBox pour les catégories | on affiche uniquement le nom
         UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")" + ", Purchase Price : " + p.getSalePrice() + "$ , Sale Price : " + p.getSalePrice() + "$ , Stock : " + p.getStock() + ", Discounted : " + p.isDiscounted() + ", Stock :" + p.getStock());
 
-        loadCategories(cmbCategory);
+        loadComboBox(cmbCategory, categoryService.listAllCategories());
         fetchProducts(lvProducts);
 
         setupListeners();

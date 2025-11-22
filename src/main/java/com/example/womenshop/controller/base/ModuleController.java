@@ -16,7 +16,7 @@ import javafx.scene.control.ListView;
 
 import java.util.List;
 
-abstract public class ModuleController extends BaseController implements IRefreshableController {
+abstract public class ModuleController<T> extends BaseController implements IRefreshableController {
 
     protected ProductService productService;
     protected CategoryService categoryService;
@@ -48,9 +48,9 @@ abstract public class ModuleController extends BaseController implements IRefres
         }
     }
 
-    protected void loadCategories(ComboBox<Category> cmbCategory) {
-        ObservableList<Category> categories = FXCollections.observableArrayList(categoryService.listAllCategories());
-        cmbCategory.setItems(categories);
+    protected void loadComboBox(ComboBox<T> cmb, List<T> listOfValues) {
+        ObservableList<T> observableList = FXCollections.observableArrayList(listOfValues);
+        cmb.setItems(observableList);
     }
 
 

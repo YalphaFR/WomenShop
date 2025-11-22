@@ -80,7 +80,6 @@ public class PurchaseProductController extends ModuleController {
 
     @Override
     public void initData() {
-        loadCategories(cmbCategory);
         UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName);
         UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ") - Stock: " + p.getStock());
 
@@ -88,6 +87,7 @@ public class PurchaseProductController extends ModuleController {
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1);
         spinQuantity.setValueFactory(valueFactory);
 
+        loadComboBox(cmbCategory, categoryService.listAllCategories());
         fetchProducts(lvProducts);
         setupListeners();
     }

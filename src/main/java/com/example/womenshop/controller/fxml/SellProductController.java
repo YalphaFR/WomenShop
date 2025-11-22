@@ -94,7 +94,7 @@ public class SellProductController extends ModuleController {
         UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")");
         UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName);
 
-        loadCategories(cmbCategory);
+        loadComboBox(cmbCategory, categoryService.listAllCategories());
         fetchProducts(lvProducts);
 
         setupListeners();
