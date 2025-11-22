@@ -28,18 +28,20 @@ public class DisplayShopInformationController extends ModuleController {
     // optionnel car à chaque fois que la page est montré, on refresh automatiquement
     @FXML
     void onRefresh() {
-        initData();
+        calculateStatistics();
+        setupTableView();
     }
 
     @Override
     public void initData() {
         calculateStatistics();
+
+        setupTableColumns();
         setupTableView();
     }
 
     private void setupTableView() {
         ObservableList<Transaction> transactions = FXCollections.observableArrayList(transactionService.listAllTransactions());
-        setupTableColumns();
         tvTransactions.setItems(transactions);
     }
 

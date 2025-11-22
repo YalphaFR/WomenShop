@@ -5,20 +5,25 @@ import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
 import com.example.womenshop.model.Transaction;
 import com.example.womenshop.util.UIUtils;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PurchaseProductController extends ModuleController {
 
-    @FXML private Button btnExit, btnReset, btnPurchase;
+    @FXML private Button btnExit, btnReset, btnPurchase, btnSearch;
     @FXML private ListView<Product> lvProducts;
-    @FXML private TextField txtName, txtPurchasePrice;
+    @FXML private TextField txtName, txtPurchasePrice, txtID;
     @FXML private ComboBox<Category> cmbCategory;
     @FXML private Spinner<Integer> spinQuantity;
     @FXML private Label lblTotalCost;
 
     @FXML
     void onReset() {
+        txtID.clear();
         lvProducts.getSelectionModel().clearSelection();
         txtName.clear();
         cmbCategory.setValue(null);
@@ -55,8 +60,31 @@ public class PurchaseProductController extends ModuleController {
         }
     }
 
+    @FXML
+    void onSearch() {
+        List<Product> filtered = new ArrayList<>();
+        if (!txtID.getText().isEmpty()) {
+            Product p = productService.findProductById(Integer.parseInt(txtID.getText()));
+
+            if (p !=null) {
+                filtered.add(p);
+            }
+
+        } else if (!txtName.getText().isEmpty()) {
+            Product p = productService.findProductByName(txtName.getText());
+            if (p != null) {
+                filtered.add(p);
+            }
+
+        } else if (cmbCategory.getSelectionModel().getSelectedItem() != null) {
+            filtered = productService.filterByCategory(cmbCategory.getSelectionModel().getSelectedItem());
+        }
+        lvProducts.setItems(FXCollections.observableArrayList(filtered));
+    }
+
     private void displayProductDetails(Product p) {
         if (p != null) {
+            txtID.setText(String.valueOf(p.getId()));
             txtName.setText(p.getName());
             cmbCategory.setValue(p.getCategory());
             txtPurchasePrice.setText(String.valueOf(p.getPurchasePrice()));

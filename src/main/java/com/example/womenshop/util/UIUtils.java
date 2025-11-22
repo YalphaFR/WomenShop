@@ -1,10 +1,14 @@
 package com.example.womenshop.util;
 
+import com.example.womenshop.model.Transaction;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.StringConverter;
 
+import java.util.Collection;
 import java.util.function.Function;
 
 public class UIUtils {
@@ -43,5 +47,4 @@ public class UIUtils {
             }
         });
     }
-
 }

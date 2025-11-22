@@ -14,9 +14,9 @@
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="560.0" prefWidth="1134.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="20.0">
             <children>
-                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques du magasin WomenShop" />
-                <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Retour au menu" />
-                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Vue d'ensemble" />
+                <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="WomenShop store statistics" />
+                <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Back to menu" />
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Overview" />
                 <GridPane hgap="20" prefHeight="99.0" prefWidth="980.0" style="-fx-background-color: #f5f5f5; -fx-padding: 15;" vgap="15">
                     <columnConstraints>
                         <ColumnConstraints maxWidth="195.0" minWidth="181.0" prefWidth="182.0" />
@@ -31,33 +31,33 @@
                         <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <Label style="-fx-font-weight: bold;" text="Total produits en stock:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label style="-fx-font-weight: bold;" text="Total products in stock:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                         <Label fx:id="lblTotalStock" style="-fx-font-size: 18px;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label prefHeight="25.0" prefWidth="212.0" style="-fx-font-weight: bold;" text="Valeur comptable stock:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label prefHeight="25.0" prefWidth="212.0" style="-fx-font-weight: bold;" text="Inventory book value:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
                         <Label fx:id="lblStockPurchaseValue" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-                        <Label style="-fx-font-weight: bold;" text="Total des ventes:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label style="-fx-font-weight: bold;" text="Total sales:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                         <Label fx:id="lblTotalSales" style="-fx-font-size: 18px; -fx-text-fill: green;" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label style="-fx-font-weight: bold;" text="Total des achats:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label style="-fx-font-weight: bold;" text="Total purchases:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                         <Label fx:id="lblTotalPurchases" style="-fx-font-size: 18px; -fx-text-fill: red;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Valeur commerciale stock:" GridPane.columnIndex="4" />
+                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Stock market value:" GridPane.columnIndex="4" />
                   <Label fx:id="lblStockSellValue" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" />
-                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Capital du magasin:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Store capital:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                   <Label fx:id="lblShopCapital" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
-                <Label fx:id="lblNetProfit" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;" text="Bénéfice net: 0.00 €" />
-                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Historique des transactions" />
+                <Label fx:id="lblNetProfit" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;" text="Net profit: 0.00 €" />
+                <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Transaction history" />
                 <TableView fx:id="tvTransactions" prefHeight="250.0">
                     <columns>
                         <TableColumn fx:id="colTransactionId" prefWidth="50.0" text="ID" />
-                        <TableColumn fx:id="colProductName" prefWidth="150.0" text="Produit" />
+                        <TableColumn fx:id="colProductName" prefWidth="150.0" text="Product" />
                         <TableColumn fx:id="colType" prefWidth="100.0" text="Type" />
-                        <TableColumn fx:id="colQuantity" prefWidth="80.0" text="Quantité" />
-                        <TableColumn fx:id="colAmount" prefWidth="100.0" text="Montant" />
+                        <TableColumn fx:id="colQuantity" prefWidth="80.0" text="Quantity" />
+                        <TableColumn fx:id="colAmount" prefWidth="100.0" text="Amount" />
                         <TableColumn fx:id="colDate" prefWidth="150.0" text="Date" />
                     </columns>
                 </TableView>
-                <Button fx:id="btnRefresh" onAction="#onRefresh" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Actualiser les données" />
+                <Button fx:id="btnRefresh" onAction="#onRefresh" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Refresh the data" />
             </children>
         </VBox>
     </children>

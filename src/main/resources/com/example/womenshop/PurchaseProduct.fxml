@@ -17,9 +17,9 @@
     <children>
         <VBox alignment="CENTER" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
             <children>
-                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Acheter des produits" />
-                <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Retour au menu" />
-                <Label text="Produits disponibles à l'achat:" />
+                <Label style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Buy products" />
+                <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Back to menu" />
+                <Label text="Products available for purchase:" />
                 <ListView fx:id="lvProducts" prefHeight="150.0" />
                 <GridPane hgap="10" vgap="10">
                     <columnConstraints>
@@ -32,25 +32,29 @@
                         <RowConstraints />
                         <RowConstraints />
                         <RowConstraints />
+                  <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <Label text="Nom du produit:" GridPane.rowIndex="0" />
-                        <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label text="Catégorie:" GridPane.rowIndex="1" />
-                        <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label text="Prix d'achat unitaire:" GridPane.rowIndex="2" />
-                        <TextField fx:id="txtPurchasePrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Quantité à acheter:" GridPane.rowIndex="4" />
-                        <Spinner fx:id="spinQuantity" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label text="Product name:" GridPane.rowIndex="1" />
+                        <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Category:" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label text="Unit purchase price:" GridPane.rowIndex="3" />
+                        <TextField fx:id="txtPurchasePrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label text="Quantity to buy:" GridPane.rowIndex="5" />
+                        <Spinner fx:id="spinQuantity" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label prefHeight="25.0" prefWidth="140.0" text="ID:" />
+                  <TextField fx:id="txtID" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
                 <HBox alignment="CENTER" spacing="10">
                     <children>
-                        <Button fx:id="btnReset" onAction="#onReset" text="Réinitialiser" />
-                        <Button fx:id="btnPurchase" onAction="#onPurchase" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Acheter" />
+                  <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#onSearch" text="Search" />
+                        <Button fx:id="btnReset" onAction="#onReset" text="Reset" />
+                        <Button fx:id="btnPurchase" onAction="#onPurchase" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Buy" />
                     </children>
                 </HBox>
-                <Label fx:id="lblTotalCost" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Coût total: 0.00 €" />
+                <Label fx:id="lblTotalCost" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Total cost: 0.00 €" />
             </children>
         </VBox>
     </children>
