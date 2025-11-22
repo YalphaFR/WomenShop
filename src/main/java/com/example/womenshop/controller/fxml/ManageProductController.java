@@ -15,18 +15,20 @@ import java.util.List;
 
 public class ManageProductController extends ModuleController {
 
+    @FXML private Label lblID;
     @FXML private ListView<Product> lvProducts;
-    @FXML private TextField txtName, txtPrice, txtStock, txtID;
+    @FXML private TextField txtName, txtSalePrice, txtPurchasePrice, txtStock;
     @FXML private ComboBox<Category> cmbCategory;
     @FXML private ComboBox<Boolean> cmbIsDiscounted;
     @FXML private Button btnSave, btnDelete, btnFilter, btnReset, btnExit;
 
     private void displayProductDetails(Product p) {
         if (p != null) {
-            txtID.setText(String.valueOf(p.getId()));
+            lblID.setText(String.valueOf(p.getId()));
             txtName.setText(p.getName());
             cmbCategory.setValue(p.getCategory());
-            txtPrice.setText(String.valueOf(p.getPurchasePrice()));
+            txtSalePrice.setText(String.valueOf(p.getSalePrice()));
+            txtPurchasePrice.setText(String.valueOf(p.getPurchasePrice()));
             txtStock.setText(String.valueOf(p.getStock()));
             cmbIsDiscounted.setValue(p.isDiscounted());
         }
@@ -44,8 +46,8 @@ public class ManageProductController extends ModuleController {
     @FXML
     private void onFilter() {
         List<Product> filtered = new ArrayList<>();
-        if (!txtID.getText().isEmpty()) {
-            Product p = productService.findProductById(Integer.parseInt(txtID.getText()));
+        if (!lblID.getText().isEmpty()) {
+            Product p = productService.findProductById(Integer.parseInt(lblID.getText()));
 
             if (p !=null) {
                 filtered.add(p);
@@ -69,17 +71,19 @@ public class ManageProductController extends ModuleController {
             Product selected = lvProducts.getSelectionModel().getSelectedItem();
             String name = txtName.getText();
             Category category = cmbCategory.getValue();
-            double price = Double.parseDouble(txtPrice.getText());
+            double salePrice = Double.parseDouble(txtSalePrice.getText());
+            double purchasePrice = Double.parseDouble(txtPurchasePrice.getText());
             int stock = Integer.parseInt(txtStock.getText());
             Boolean isDiscounted = cmbIsDiscounted.getValue();
 
             if (selected == null) {
-                Product p = new Product(category,name, price, 0, isDiscounted, stock);
+                Product p = new Product(category,name, purchasePrice, salePrice, isDiscounted, stock);
                 productService.registerProduct(p);
             } else {
                 selected.setName(name);
                 selected.setCategory(category);
-                selected.setPurchasePrice(price);
+                selected.setSalePrice(salePrice);
+                selected.setPurchasePrice(purchasePrice);
                 selected.setStock(stock);
                 selected.setDiscounted(isDiscounted);
                 productService.updateProductDetails(selected);
@@ -93,10 +97,11 @@ public class ManageProductController extends ModuleController {
     @FXML
     private void onReset() {
         lvProducts.getSelectionModel().clearSelection();
-        txtID.clear();
+        lblID.setText("");
         txtName.clear();
         cmbCategory.setValue(null);
-        txtPrice.clear();
+        txtSalePrice.clear();
+        txtPurchasePrice.clear();
         txtStock.clear();
         cmbIsDiscounted.setValue(null);
 

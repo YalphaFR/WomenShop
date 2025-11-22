@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -41,16 +40,14 @@
                         <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Prix d'achat unitaire:" GridPane.rowIndex="2" />
                         <TextField fx:id="txtPurchasePrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Prix de vente:" GridPane.rowIndex="3" />
-                        <TextField fx:id="txtSalePrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Quantité à acheter:" GridPane.rowIndex="4" />
                         <Spinner fx:id="spinQuantity" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
-                <HBox spacing="10" alignment="CENTER">
+                <HBox alignment="CENTER" spacing="10">
                     <children>
                         <Button fx:id="btnReset" onAction="#onReset" text="Réinitialiser" />
-                        <Button fx:id="btnPurchase" onAction="#onPurchase" text="Acheter" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+                        <Button fx:id="btnPurchase" onAction="#onPurchase" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Acheter" />
                     </children>
                 </HBox>
                 <Label fx:id="lblTotalCost" style="-fx-font-size: 14px; -fx-font-weight: bold;" text="Coût total: 0.00 €" />

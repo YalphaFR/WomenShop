@@ -33,22 +33,25 @@
         <Label text="Category:" GridPane.rowIndex="2" />
         <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Price:" GridPane.rowIndex="3" />
-        <TextField fx:id="txtPrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label prefHeight="25.0" prefWidth="99.0" text="Sale price:" GridPane.rowIndex="3" />
+        <TextField fx:id="txtSalePrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label text="Stock:" GridPane.rowIndex="4" />
-        <TextField fx:id="txtStock" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label text="Stock:" GridPane.rowIndex="5" />
+        <TextField fx:id="txtStock" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Button fx:id="btnFilter" mnemonicParsing="false" onAction="#onFilter" text="Filter" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Label text="Is discounted:" GridPane.rowIndex="5" />
-      <ComboBox fx:id="cmbIsDiscounted" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label text="Is discounted:" GridPane.rowIndex="6" />
+      <ComboBox fx:id="cmbIsDiscounted" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <Label text="ID:" />
-      <TextField fx:id="txtID" GridPane.columnIndex="1" />
+      <Label fx:id="lblID" prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="1" />
+      <Label text="Purchase price" GridPane.rowIndex="4" />
+      <TextField fx:id="txtPurchasePrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints maxWidth="269.0" minWidth="113.5" prefWidth="200.0" />
          <ColumnConstraints maxWidth="155.5" minWidth="0.0" prefWidth="110.5" />
       </columnConstraints>
       <rowConstraints>
+         <RowConstraints />
          <RowConstraints />
          <RowConstraints />
          <RowConstraints />

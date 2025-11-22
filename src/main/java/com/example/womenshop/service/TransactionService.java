@@ -1,5 +1,6 @@
 package com.example.womenshop.service;
 
+import com.example.womenshop.repository.IProductRepository;
 import com.example.womenshop.service.*;
 import com.example.womenshop.model.Product;
 import com.example.womenshop.model.Transaction;
@@ -9,9 +10,11 @@ import java.util.List;
 
 public class TransactionService {
     private final ITransactionRepository repo;
+    private final IProductRepository productRepository;
 
-    public TransactionService(ITransactionRepository repo) {
+    public TransactionService(ITransactionRepository repo, IProductRepository productRepository) {
         this.repo = repo;
+        this.productRepository = productRepository;
     }
 
 
@@ -20,7 +23,12 @@ public class TransactionService {
     }
 
     public List<Transaction> listAllTransactions() {
-       return  repo.getAllTransactions();
+        List<Transaction> transactions = repo.getAllTransactions();
+        for (Transaction t : transactions) {
+            Product p = productRepository.getProductById(t.getProduct().getId());
+            t.setProduct(p);
+        }
+        return transactions;
     }
 
     public Transaction findTransactionById(int id) {

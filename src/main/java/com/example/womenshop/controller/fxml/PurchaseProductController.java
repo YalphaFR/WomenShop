@@ -3,6 +3,7 @@ package com.example.womenshop.controller.fxml;
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
+import com.example.womenshop.model.Transaction;
 import com.example.womenshop.util.UIUtils;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,7 +12,7 @@ public class PurchaseProductController extends ModuleController {
 
     @FXML private Button btnExit, btnReset, btnPurchase;
     @FXML private ListView<Product> lvProducts;
-    @FXML private TextField txtName, txtPurchasePrice, txtSalePrice;
+    @FXML private TextField txtName, txtPurchasePrice;
     @FXML private ComboBox<Category> cmbCategory;
     @FXML private Spinner<Integer> spinQuantity;
     @FXML private Label lblTotalCost;
@@ -22,7 +23,6 @@ public class PurchaseProductController extends ModuleController {
         txtName.clear();
         cmbCategory.setValue(null);
         txtPurchasePrice.clear();
-        txtSalePrice.clear();
         spinQuantity.getValueFactory().setValue(1);
         lblTotalCost.setText("Coût total: 0.00 €");
     }
@@ -30,28 +30,25 @@ public class PurchaseProductController extends ModuleController {
     @FXML
     void onPurchase() {
         try {
-            Product selected = lvProducts.getSelectionModel().getSelectedItem();
-            String name = txtName.getText();
-            Category category = cmbCategory.getValue();
-            double purchasePrice = Double.parseDouble(txtPurchasePrice.getText());
-            double salePrice = Double.parseDouble(txtSalePrice.getText());
-            int quantity = spinQuantity.getValue();
+            Product product = lvProducts.getSelectionModel().getSelectedItem();
 
-            if (name.isEmpty() || category == null) {
-                showAlert("Erreur", "Veuillez remplir tous les champs");
+            if (product == null) {
+                showAlert("Erreur", "Veuillez selectionner un produit");
                 return;
-            }
+            };
 
-            if (selected == null) {
-                Product p = new Product(category, name, purchasePrice, salePrice, false, quantity);
-                productService.registerProduct(p);
-                showAlert("Succès", "Produit acheté et ajouté au stock!");
-            } else {
-                selected.setStock(selected.getStock() + quantity);
-                productService.updateProductDetails(selected);
-                showAlert("Succès", quantity + " unités ajoutées au stock!");
-            }
+            int quantity = spinQuantity.getValue();
+            double amount = product.getPurchasePrice() * quantity;
 
+            product.setStock(product.getStock() + quantity);
+            productService.updateProductDetails(product);
+            showAlert("Succès", quantity + " unités ajoutées au stock!");
+
+
+            Transaction transaction = new Transaction(product, Transaction.TransactionType.PURCHASE, quantity, amount);
+            transactionService.registerTransaction(transaction);
+
+            this.shopService.addToCapital(-amount);
             onReset();
         } catch (NumberFormatException e) {
             showAlert("Erreur", "Prix ou quantité invalide");
@@ -63,7 +60,6 @@ public class PurchaseProductController extends ModuleController {
             txtName.setText(p.getName());
             cmbCategory.setValue(p.getCategory());
             txtPurchasePrice.setText(String.valueOf(p.getPurchasePrice()));
-            txtSalePrice.setText(String.valueOf(p.getSalePrice()));
             updateTotalCost();
         }
     }

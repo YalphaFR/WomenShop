@@ -23,7 +23,7 @@ public class MySQLTransactionRepository implements ITransactionRepository {
         String sql = "INSERT INTO transactions (products_id, transactions_type, transactions_quantity, transactions_amount, transactions_date) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            ps.setInt(1, t.getId());
+            ps.setInt(1, t.getProduct().getId());
             ps.setString(2, t.getType().name());
             ps.setInt(3, t.getQuantity());
             ps.setDouble(4, t.getAmount());

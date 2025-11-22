@@ -26,4 +26,5 @@ module com.example.womenshop {
     exports com.example.womenshop.controller.fxml;
     opens com.example.womenshop.controller.fxml to javafx.fxml;
     opens com.example.womenshop.controller.base to javafx.fxml;
+    opens com.example.womenshop.model to javafx.base;
 }

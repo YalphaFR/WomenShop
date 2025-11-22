@@ -7,6 +7,7 @@ public class Product {
     private double purchasePrice;
     private double salePrice;
     private boolean discounted;
+    private double salePriceDiscounted;
     private int stock;
 
     // Getters & setters
@@ -20,6 +21,8 @@ public class Product {
     public void setPurchasePrice(double purchasePrice) { this.purchasePrice = purchasePrice; }
     public double getSalePrice() { return salePrice; }
     public void setSalePrice(double salePrice) { this.salePrice = salePrice; }
+    public double getSalePriceDiscounted() { return salePriceDiscounted; }
+    public void setSalePriceDiscounted(double salePriceDiscounted) { this.salePriceDiscounted = salePriceDiscounted; }
     public boolean isDiscounted() { return discounted; }
     public void setDiscounted(boolean discounted) { this.discounted = discounted; }
     public int getStock() { return stock; }
@@ -41,11 +44,24 @@ public class Product {
         this(-1, category, name, purchasePrice, salePrice, discounted, stock);
     }
 
+    public Product(Category category, String name, double purchasePrice, double salePrice, int stock) {
+        this(category, name, purchasePrice, salePrice, false, stock);
+    }
+
+    public double getFinalSalePrice() {
+        if (discounted) {
+            return salePriceDiscounted;
+        }
+        return salePrice;
+    }
+
+
     private void setDiscountPrice() {
+        if (category == null) return;
         switch(category.getName().toLowerCase()) {
-            case "clothes": salePrice = salePrice * 0.7; break;
-            case "shoes": salePrice = salePrice * 0.8; break;
-            case "accessory": salePrice = salePrice * 0.5; break;
+            case "clothes": salePriceDiscounted = salePrice * 0.7; break;
+            case "shoes": salePriceDiscounted = salePrice * 0.8; break;
+            case "accessory": salePriceDiscounted = salePrice * 0.5; break;
         }
     }
 

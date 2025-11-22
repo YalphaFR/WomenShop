@@ -1,16 +1,10 @@
 package com.example.womenshop.controller.fxml;
 
-import com.example.womenshop.SceneManager;
-import com.example.womenshop.controller.IRefreshableController;
-import com.example.womenshop.controller.ISceneAwareController;
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
-import com.example.womenshop.service.CategoryService;
-import com.example.womenshop.service.ProductService;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -88,7 +82,7 @@ public class DisplayProductController extends ModuleController {
     public void initData() {
 
         UIUtils.setupComboBoxDisplay(cmbCategory, Category::getName); // on change l'affichage du comboxBox pour les catégories | on affiche uniquement le nom
-        UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")" + ", Purchase Price : " + p.getSalePrice() + "$ , Sale Price : " + p.getSalePrice() + "$ , Stock : " + p.getStock() + ", Discounted : " + p.isDiscounted() + ", Stock :" + p.getStock());
+        UIUtils.setupListViewDisplay(lvProducts, p -> p.getName() + " (" + p.getCategory().getName() + ")" + ", Purchase Price : " + p.getPurchasePrice()  + "$ , Sale Price : " + p.getFinalSalePrice() + "$ , Stock : " + p.getStock() + ", Discounted : " + p.isDiscounted());
 
         loadComboBox(cmbCategory, categoryService.listAllCategories());
         fetchProducts(lvProducts);

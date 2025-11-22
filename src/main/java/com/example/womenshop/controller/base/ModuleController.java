@@ -1,5 +1,6 @@
 package com.example.womenshop.controller.base;
 
+import com.almasb.fxgl.trade.Shop;
 import com.example.womenshop.controller.IRefreshableController;
 import com.example.womenshop.controller.ISceneAwareController;
 import com.example.womenshop.model.Category;

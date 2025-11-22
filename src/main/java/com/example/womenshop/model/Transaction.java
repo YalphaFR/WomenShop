@@ -1,6 +1,5 @@
 package com.example.womenshop.model;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Transaction {
@@ -27,6 +26,10 @@ public class Transaction {
 
     public Transaction(Product product, TransactionType type, int quantity, double amount, LocalDateTime date) {
         this(-1,product,type,quantity,amount,date);
+    }
+
+    public Transaction(Product product, TransactionType type, int quantity, double amount) {
+        this(-1,product,type,quantity,amount,LocalDateTime.now());
     }
 
     // Getters & setters

@@ -1,18 +1,14 @@
 package com.example.womenshop.controller.fxml;
 
-import com.example.womenshop.SceneManager;
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Product;
 import com.example.womenshop.model.Transaction;
-import com.example.womenshop.service.TransactionService;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.awt.event.ActionEvent;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,13 +48,18 @@ public class SellProductController extends ModuleController {
     @FXML
     void onSell() {
         Product product = lvProducts.getSelectionModel().getSelectedItem();
-        int stockForSale = spinStockToSell.getValue(); // ici on récupère la valeur selectionnée dans le spinner
-        int quantity =  product.getStock() - stockForSale;
+        int quantity = spinStockToSell.getValue(); // ici on récupère la valeur selectionnée dans le spinner
+        double amount = quantity * product.getFinalSalePrice();
+        System.out.println(quantity);
+        System.out.println(amount);
 
-        product.setStock(quantity);
+        product.setStock(product.getStock() - quantity);
         productService.updateProductDetails(product);
-        Transaction transaction = new Transaction(product, Transaction.TransactionType.SALE, quantity, product.getSalePrice(), LocalDateTime.now());
+
+        Transaction transaction = new Transaction(product, Transaction.TransactionType.SALE, quantity, amount);
         transactionService.registerTransaction(transaction);
+
+        shopService.addToCapital(amount);
 
         displayProductDetails(product);
 
@@ -112,7 +113,7 @@ public class SellProductController extends ModuleController {
             txtID.setText(String.valueOf(p.getId()));
             txtName.setText(p.getName());
             cmbCategory.setValue(p.getCategory());
-            lblPrice.setText(String.valueOf(p.getSalePrice()));
+            lblPrice.setText(String.valueOf(p.getFinalSalePrice()));
             lblStockAvailable.setText(String.valueOf(p.getStock()));
             spinStockToSell.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, p.getStock()));
         }

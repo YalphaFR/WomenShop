@@ -30,8 +30,8 @@ public class Main extends Application {
         // les services
         CategoryService categoryService = new CategoryService(categoryRepository);
         ProductService productService = new ProductService(productRepository);
-        TransactionService transactionService = new TransactionService(transactionRepository);
-        ShopService shopService = new ShopService(shopRepository);
+        TransactionService transactionService = new TransactionService(transactionRepository, productRepository);
+        ShopService shopService = new ShopService(shopRepository, transactionRepository);
 
 
         sceneManager.loadAndInitScene(
@@ -54,6 +54,7 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                     controller.setCategoryService(categoryService);
                     controller.setProductService(productService);
+                    controller.setTransactionService(transactionService);
                     controller.setShopService(shopService);
                 }
         );
@@ -87,6 +88,7 @@ public class Main extends Application {
                     controller.setSceneManager(sceneManager);
                     controller.setCategoryService(categoryService);
                     controller.setProductService(productService);
+                    controller.setTransactionService(transactionService);
                     controller.setShopService(shopService);
                 }
         );

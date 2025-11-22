@@ -1,60 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.DisplayShopInformationController">
+<AnchorPane prefHeight="600.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.DisplayShopInformationController">
     <children>
-        <VBox alignment="TOP_CENTER" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <VBox alignment="TOP_CENTER" prefHeight="560.0" prefWidth="1134.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="20.0">
             <children>
                 <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Statistiques du magasin WomenShop" />
                 <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Retour au menu" />
                 <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Vue d'ensemble" />
-                <GridPane hgap="20" vgap="15" style="-fx-background-color: #f5f5f5; -fx-padding: 15;">
+                <GridPane hgap="20" prefHeight="99.0" prefWidth="980.0" style="-fx-background-color: #f5f5f5; -fx-padding: 15;" vgap="15">
                     <columnConstraints>
-                        <ColumnConstraints minWidth="200.0" />
-                        <ColumnConstraints minWidth="150.0" />
-                        <ColumnConstraints minWidth="200.0" />
-                        <ColumnConstraints minWidth="150.0" />
+                        <ColumnConstraints maxWidth="195.0" minWidth="181.0" prefWidth="182.0" />
+                        <ColumnConstraints maxWidth="145.0" minWidth="70.0" prefWidth="88.0" />
+                        <ColumnConstraints maxWidth="280.0" minWidth="193.0" prefWidth="193.0" />
+                        <ColumnConstraints maxWidth="220.0" minWidth="70.0" prefWidth="78.0" />
+                  <ColumnConstraints maxWidth="267.0" minWidth="80.0" prefWidth="211.0" />
+                  <ColumnConstraints maxWidth="250.0" minWidth="43.0" prefWidth="99.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints />
                         <RowConstraints />
                     </rowConstraints>
                     <children>
-                        <Label text="Total produits en stock:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                        <Label fx:id="lblTotalStock" text="0" style="-fx-font-size: 18px;" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-                        <Label text="Valeur totale du stock:" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="2" />
-                        <Label fx:id="lblStockValue" text="0.00 €" style="-fx-font-size: 18px;" GridPane.rowIndex="0" GridPane.columnIndex="3" />
-                        <Label text="Total des ventes:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                        <Label fx:id="lblTotalSales" text="0.00 €" style="-fx-font-size: 18px; -fx-text-fill: green;" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-                        <Label text="Total des achats:" style="-fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="2" />
-                        <Label fx:id="lblTotalPurchases" text="0.00 €" style="-fx-font-size: 18px; -fx-text-fill: red;" GridPane.rowIndex="1" GridPane.columnIndex="3" />
+                        <Label style="-fx-font-weight: bold;" text="Total produits en stock:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label fx:id="lblTotalStock" style="-fx-font-size: 18px;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label prefHeight="25.0" prefWidth="212.0" style="-fx-font-weight: bold;" text="Valeur comptable stock:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                        <Label fx:id="lblStockPurchaseValue" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label style="-fx-font-weight: bold;" text="Total des ventes:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label fx:id="lblTotalSales" style="-fx-font-size: 18px; -fx-text-fill: green;" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label style="-fx-font-weight: bold;" text="Total des achats:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label fx:id="lblTotalPurchases" style="-fx-font-size: 18px; -fx-text-fill: red;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Valeur commerciale stock:" GridPane.columnIndex="4" />
+                  <Label fx:id="lblStockSellValue" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" />
+                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Capital du magasin:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Label fx:id="lblShopCapital" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
-                <Label fx:id="lblNetProfit" text="Bénéfice net: 0.00 €" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;" />
+                <Label fx:id="lblNetProfit" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;" text="Bénéfice net: 0.00 €" />
                 <Label style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Historique des transactions" />
                 <TableView fx:id="tvTransactions" prefHeight="250.0">
                     <columns>
-                        <TableColumn fx:id="colTransactionId" text="ID" prefWidth="50.0" />
-                        <TableColumn fx:id="colProductName" text="Produit" prefWidth="150.0" />
-                        <TableColumn fx:id="colType" text="Type" prefWidth="100.0" />
-                        <TableColumn fx:id="colQuantity" text="Quantité" prefWidth="80.0" />
-                        <TableColumn fx:id="colAmount" text="Montant" prefWidth="100.0" />
-                        <TableColumn fx:id="colDate" text="Date" prefWidth="150.0" />
+                        <TableColumn fx:id="colTransactionId" prefWidth="50.0" text="ID" />
+                        <TableColumn fx:id="colProductName" prefWidth="150.0" text="Produit" />
+                        <TableColumn fx:id="colType" prefWidth="100.0" text="Type" />
+                        <TableColumn fx:id="colQuantity" prefWidth="80.0" text="Quantité" />
+                        <TableColumn fx:id="colAmount" prefWidth="100.0" text="Montant" />
+                        <TableColumn fx:id="colDate" prefWidth="150.0" text="Date" />
                     </columns>
                 </TableView>
-                <Button fx:id="btnRefresh" onAction="#onRefresh" text="Actualiser les données" style="-fx-background-color: #2196F3; -fx-text-fill: white;" />
+                <Button fx:id="btnRefresh" onAction="#onRefresh" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Actualiser les données" />
             </children>
         </VBox>
     </children>
 </AnchorPane>
-
