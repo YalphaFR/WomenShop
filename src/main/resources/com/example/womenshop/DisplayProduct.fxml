@@ -1,56 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefWidth="1000" prefHeight="600"
-            xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.womenshop.controller.fxml.DisplayProductController">
+<AnchorPane prefHeight="600" prefWidth="1079.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.DisplayProductController">
 
     <children>
-        <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
-              AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        <VBox layoutY="98.0" prefHeight="482.0" prefWidth="1005.0" spacing="20" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="98.0">
 
-            <Label text="Search a product"
-                   style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
-
-            <Button fx:id="btnExit" text="Exit" onAction="#onExit" />
-
-            <TableView fx:id="tvProducts" prefHeight="300">
+            <TableView fx:id="tvProducts" prefHeight="275.0" prefWidth="1056.0">
                 <columns>
-                    <TableColumn fx:id="colProductsId" text="ID" prefWidth="70"/>
-                    <TableColumn fx:id="colProductsName" text="Name" prefWidth="180"/>
-                    <TableColumn fx:id="colProductsCategoryName" text="Category" prefWidth="130"/>
-                    <TableColumn fx:id="colProductsPurchasePrice" text="Purchase price" prefWidth="120"/>
-                    <TableColumn fx:id="colProductsSalePrice" text="Sale price" prefWidth="120"/>
-                    <TableColumn fx:id="colDiscounted" text="Discounted" prefWidth="130"/>
-                    <TableColumn fx:id="colProductsFinalPriceDiscounted" text="Final price discounted" prefWidth="160"/>
-                    <TableColumn fx:id="colProductsStock" text="Stock" prefWidth="100"/>
+                    <TableColumn fx:id="colProductsId" prefWidth="70" text="ID" />
+                    <TableColumn fx:id="colProductsName" prefWidth="180" text="Name" />
+                    <TableColumn fx:id="colProductsCategoryName" prefWidth="130" text="Category" />
+                    <TableColumn fx:id="colProductsPurchasePrice" prefWidth="120" text="Purchase price" />
+                    <TableColumn fx:id="colProductsSalePrice" prefWidth="120" text="Sale price" />
+                    <TableColumn fx:id="colDiscounted" prefWidth="130" text="Discounted" />
+                    <TableColumn fx:id="colProductsFinalPriceDiscounted" prefWidth="189.0" text="Final price discounted" />
+                    <TableColumn fx:id="colProductsStock" minWidth="0.0" prefWidth="65.0" text="Stock" />
                 </columns>
             </TableView>
 
-            <GridPane hgap="15" vgap="15">
+            <GridPane hgap="15" prefHeight="135.0" prefWidth="919.0" vgap="15">
                 <columnConstraints>
-                    <ColumnConstraints halignment="RIGHT" prefWidth="120"/>
-                    <ColumnConstraints hgrow="ALWAYS"/>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="120.0" />
+                    <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
 
-                <Label text="ID:" GridPane.rowIndex="0"/>
-                <TextField fx:id="txtID" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                <Label text="ID:" GridPane.rowIndex="0" />
+                <TextField fx:id="txtID" prefHeight="35.0" prefWidth="771.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="Name:" GridPane.rowIndex="1"/>
-                <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Label text="Name:" GridPane.rowIndex="1" />
+                <TextField fx:id="txtName" prefHeight="35.0" prefWidth="775.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Category:" GridPane.rowIndex="2"/>
-                <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <Label text="Category:" GridPane.rowIndex="2" />
+                <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
 
             <HBox spacing="15">
-                <Button fx:id="btnSearch" text="Search" onAction="#onSearch"/>
-                <Button fx:id="btnReset" text="Reset" onAction="#onReset"/>
+                <Button fx:id="btnSearch" onAction="#onSearch" text="Search" />
+                <Button fx:id="btnReset" onAction="#onReset" text="Reset" />
             </HBox>
 
         </VBox>
+
+            <Label layoutX="452.0" layoutY="14.0" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Search a product" />
+
+            <Button fx:id="btnExit" layoutX="478.0" layoutY="55.0" onAction="#onExit" text="Back to menu" />
     </children>
 </AnchorPane>
