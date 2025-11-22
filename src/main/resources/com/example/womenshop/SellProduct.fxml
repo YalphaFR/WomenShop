@@ -61,6 +61,6 @@
     <HBox spacing="15">
         <Button fx:id="btnSearch" onAction="#onSearch" text="Search" />
         <Button fx:id="btnReset" onAction="#onReset" text="Reset" />
-        <Button fx:id="btnSell" onAction="#onSell" text="Sell" />
+        <Button fx:id="btnSell" onAction="#onSell" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" text="Sell" />
     </HBox>
 </VBox>

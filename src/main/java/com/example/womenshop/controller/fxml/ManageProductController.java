@@ -40,6 +40,7 @@ public class ManageProductController extends ModuleController {
         if (selected != null) {
             productService.removeProduct(selected.getId());
             fetchProducts(lvProducts);
+            showAlert("Succès :", "Produit supprimé");
         }
     }
 
@@ -79,6 +80,7 @@ public class ManageProductController extends ModuleController {
             if (selected == null) {
                 Product p = new Product(category,name, purchasePrice, salePrice, isDiscounted, stock);
                 productService.registerProduct(p);
+                showAlert("Succès :", "produit enregistré");
             } else {
                 selected.setName(name);
                 selected.setCategory(category);
@@ -87,10 +89,12 @@ public class ManageProductController extends ModuleController {
                 selected.setStock(stock);
                 selected.setDiscounted(isDiscounted);
                 productService.updateProductDetails(selected);
+                showAlert("Succès :", "produit modifié");
             }
             onReset();
-        } catch (NumberFormatException e) {
-            System.out.println("Erreur : " + e.getMessage());
+        } catch (Exception e) {
+            showAlert("Erreur", "Une erreur est survenue");
+            System.err.println("Une erreur est survenue: " + e.getMessage());
         }
     }
 

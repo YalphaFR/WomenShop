@@ -48,22 +48,33 @@ public class SellProductController extends ModuleController {
 
     @FXML
     void onSell() {
-        Product product = lvProducts.getSelectionModel().getSelectedItem();
-        int quantity = spinStockToSell.getValue(); // ici on récupère la valeur selectionnée dans le spinner
-        double amount = quantity * product.getFinalSalePrice();
-        System.out.println(quantity);
-        System.out.println(amount);
+        try {
+            Product product = lvProducts.getSelectionModel().getSelectedItem();
 
-        product.setStock(product.getStock() - quantity);
-        productService.updateProductDetails(product);
+            if (product == null) {
+                showAlert("Erreur", "Veuillez selectionner un produit");
+                return;
+            }
 
-        Transaction transaction = new Transaction(product, Transaction.TransactionType.SALE, quantity, amount);
-        transactionService.registerTransaction(transaction);
+            int quantity = spinStockToSell.getValue(); // ici on récupère la valeur selectionnée dans le spinner
+            double amount = quantity * product.getFinalSalePrice();
+            System.out.println(quantity);
+            System.out.println(amount);
 
-        shopService.addToCapital(amount);
+            product.setStock(product.getStock() - quantity);
+            productService.updateProductDetails(product);
 
-        displayProductDetails(product);
+            Transaction transaction = new Transaction(product, Transaction.TransactionType.SALE, quantity, amount);
+            transactionService.registerTransaction(transaction);
+            showAlert("Succès :", "Transaction effectuée. Le produit est vendu");
 
+            shopService.addToCapital(amount);
+
+            displayProductDetails(product);
+        } catch(Exception e) {
+            showAlert("Erreur", "Une erreur est survenue");
+            System.err.println("Une erreur est survenue: " + e.getMessage());
+        }
     }
 
     @FXML
