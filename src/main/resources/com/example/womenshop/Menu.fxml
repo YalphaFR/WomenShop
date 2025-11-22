@@ -1,17 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.MenuController">
-   <children>
-      <Label layoutX="171.0" layoutY="31.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Welcome to WomenShop!" />
-      <Label layoutX="260.0" layoutY="77.0" text="Menu" />
-      <Button fx:id="btnManageProduct" layoutX="197.0" layoutY="183.0" mnemonicParsing="false" onAction="#onManageProduct" text="Manage products" />
-      <Button fx:id="btnDisplayProduct" layoutX="199.0" layoutY="126.0" mnemonicParsing="false" onAction="#onDisplayProduct" text="View products" />
-      <Button fx:id="btnDisplayShopInformation" layoutX="150.0" layoutY="306.0" mnemonicParsing="false" onAction="#onDisplayShopInformation" text="Show store figures" />
-      <Button fx:id="btnSellProduct" layoutX="47.0" layoutY="241.0" mnemonicParsing="false" onAction="#onSellProduct" text="Selling products" />
-      <Button fx:id="btnPurchaseProduct" layoutX="317.0" layoutY="241.0" mnemonicParsing="false" onAction="#onPurchaseProduct" text="Buy products" />
-   </children>
+<AnchorPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.womenshop.controller.fxml.MenuController"
+            prefWidth="600" prefHeight="450">
+
+    <children>
+        <VBox alignment="CENTER" spacing="20"
+              AnchorPane.topAnchor="20" AnchorPane.bottomAnchor="20"
+              AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+            <Label text="Welcome to WomenShop!"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+            <Label text="Menu" style="-fx-font-size: 16px;"/>
+
+            <Button fx:id="btnDisplayProduct" text="View products" prefWidth="250"
+                    onAction="#onDisplayProduct"/>
+
+            <Button fx:id="btnManageProduct" text="Manage products" prefWidth="250"
+                    onAction="#onManageProduct"/>
+
+            <Button fx:id="btnSellProduct" text="Selling products" prefWidth="250"
+                    onAction="#onSellProduct"/>
+
+            <Button fx:id="btnPurchaseProduct" text="Buy products" prefWidth="250"
+                    onAction="#onPurchaseProduct"/>
+
+            <Button fx:id="btnDisplayShopInformation" text="Show store figures" prefWidth="250"
+                    onAction="#onDisplayShopInformation"/>
+
+        </VBox>
+    </children>
 </AnchorPane>
+

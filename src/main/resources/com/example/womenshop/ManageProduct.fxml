@@ -1,71 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.ManageProductController">
+<VBox xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.womenshop.controller.fxml.ManageProductController"
+      alignment="CENTER" spacing="20">
 
     <padding>
-        <Insets bottom="20" left="20" right="20" top="20" />
+        <Insets top="25" bottom="25" left="25" right="25"/>
     </padding>
 
-    <!-- Titre -->
-    <Label fx:id="welcomeText" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Manage Products" />
-   <Button fx:id="btnExit" mnemonicParsing="false" onAction="#onExit" text="Exit" />
+    <Label text="Manage Products"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
 
-    <!-- Liste des produits -->
-    <ListView fx:id="lvProducts" prefHeight="200" prefWidth="300" />
+    <Button fx:id="btnExit" text="Exit" onAction="#onExit"/>
 
-    <!-- Formulaire détails produit -->
-    <GridPane hgap="10" vgap="10">
-        <Label text="Name:" GridPane.rowIndex="1" />
-        <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <ListView fx:id="lvProducts" prefHeight="200" prefWidth="500"/>
 
-        <Label text="Category:" GridPane.rowIndex="2" />
-        <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <GridPane hgap="15" vgap="15">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" prefWidth="140"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints prefWidth="120"/>
+        </columnConstraints>
 
-        <Label prefHeight="25.0" prefWidth="99.0" text="Sale price:" GridPane.rowIndex="3" />
-        <TextField fx:id="txtSalePrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label text="ID:" GridPane.rowIndex="0"/>
+        <Label fx:id="lblID" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-        <Label text="Stock:" GridPane.rowIndex="5" />
-        <TextField fx:id="txtStock" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Button fx:id="btnFilter" mnemonicParsing="false" onAction="#onFilter" text="Filter" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Label text="Is discounted:" GridPane.rowIndex="6" />
-      <ComboBox fx:id="cmbIsDiscounted" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <Label text="ID:" />
-      <Label fx:id="lblID" prefHeight="25.0" prefWidth="202.0" GridPane.columnIndex="1" />
-      <Label text="Purchase price" GridPane.rowIndex="4" />
-      <TextField fx:id="txtPurchasePrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints maxWidth="269.0" minWidth="113.5" prefWidth="200.0" />
-         <ColumnConstraints maxWidth="155.5" minWidth="0.0" prefWidth="110.5" />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
+        <Label text="Name:" GridPane.rowIndex="1"/>
+        <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Label text="Category:" GridPane.rowIndex="2"/>
+        <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Button fx:id="btnFilter" text="Filter" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                onAction="#onFilter"/>
+
+        <Label text="Purchase price:" GridPane.rowIndex="3"/>
+        <TextField fx:id="txtPurchasePrice" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Sale price:" GridPane.rowIndex="4"/>
+        <TextField fx:id="txtSalePrice" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+        <Label text="Stock:" GridPane.rowIndex="5"/>
+        <TextField fx:id="txtStock" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+        <Label text="Discounted:" GridPane.rowIndex="6"/>
+        <ComboBox fx:id="cmbIsDiscounted" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
     </GridPane>
 
-    <!-- Boutons CRUD -->
-    <HBox spacing="10">
-        <Button fx:id="btnReset" onAction="#onReset" text="Reset" />
-        <Button fx:id="btnSave" onAction="#onSave" text="Save" />
-        <Button fx:id="btnDelete" onAction="#onDelete" text="Delete" />
+    <HBox spacing="15">
+        <Button fx:id="btnReset" text="Reset" onAction="#onReset"/>
+        <Button fx:id="btnSave" text="Save" onAction="#onSave"/>
+        <Button fx:id="btnDelete" text="Delete" onAction="#onDelete"/>
     </HBox>
 </VBox>

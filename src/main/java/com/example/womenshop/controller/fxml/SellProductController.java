@@ -6,6 +6,7 @@ import com.example.womenshop.model.Product;
 import com.example.womenshop.model.Transaction;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -118,4 +119,6 @@ public class SellProductController extends ModuleController {
             spinStockToSell.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, p.getStock()));
         }
     }
+
+
 }

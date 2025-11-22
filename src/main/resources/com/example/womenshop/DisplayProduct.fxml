@@ -1,37 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="547.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.womenshop.controller.fxml.DisplayProductController">
-   <children>
-      <Button fx:id="btnExit" layoutX="323.0" layoutY="69.0" mnemonicParsing="false" onAction="#onExit" text="Exit" />
-      <Label layoutX="444.0" layoutY="1.0" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Search a product" />
-      <Label layoutX="38.0" layoutY="391.0" text="Name" />
-      <TextField fx:id="txtName" layoutX="103.0" layoutY="386.0" />
-      <Label layoutX="31.0" layoutY="442.0" text="Category" />
-      <ComboBox fx:id="cmbCategory" layoutX="131.0" layoutY="437.0" />
-      <Button fx:id="btnReset" layoutX="180.0" layoutY="486.0" onAction="#onReset" text="Reset" />
-      <Label layoutX="48.0" layoutY="339.0" text="ID:" />
-      <TextField fx:id="txtID" layoutX="103.0" layoutY="334.0" />
-      <Button fx:id="btnSearch" layoutX="41.0" layoutY="486.0" onAction="#onSearch" text="Search" />
-      <TableView fx:id="tvProducts" layoutX="24.0" layoutY="61.0" prefHeight="250.0" prefWidth="983.0">
-         <columns>
-            <TableColumn fx:id="colProductsId" prefWidth="50.0" text="ID" />
-            <TableColumn fx:id="colProductsName" prefWidth="150.0" text="Name" />
-            <TableColumn fx:id="colProductsCategoryName" prefWidth="100.0" text="Category" />
-            <TableColumn fx:id="colProductsPurchasePrice" prefWidth="122.0" text="Purchase price" />
-            <TableColumn fx:id="colProductsSalePrice" prefWidth="118.0" text="Sale price" />
-            <TableColumn fx:id="colDiscounted" prefWidth="136.0" text="Discounted" />
-            <TableColumn fx:id="colProductsFinalPriceDiscounted" prefWidth="197.0" text="Final price discounted" />
-            <TableColumn fx:id="colProductsStock" prefWidth="109.0" text="Stock" />
-         </columns>
-      </TableView>
-      <Button fx:id="btnExit1" layoutX="492.0" layoutY="24.0" mnemonicParsing="false" onAction="#onExit" text="Exit" />
-   </children>
+<AnchorPane prefWidth="1000" prefHeight="600"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.womenshop.controller.fxml.DisplayProductController">
+
+    <children>
+        <VBox spacing="20" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20"
+              AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+
+            <Label text="Search a product"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+            <Button fx:id="btnExit" text="Exit" onAction="#onExit" />
+
+            <TableView fx:id="tvProducts" prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="colProductsId" text="ID" prefWidth="70"/>
+                    <TableColumn fx:id="colProductsName" text="Name" prefWidth="180"/>
+                    <TableColumn fx:id="colProductsCategoryName" text="Category" prefWidth="130"/>
+                    <TableColumn fx:id="colProductsPurchasePrice" text="Purchase price" prefWidth="120"/>
+                    <TableColumn fx:id="colProductsSalePrice" text="Sale price" prefWidth="120"/>
+                    <TableColumn fx:id="colDiscounted" text="Discounted" prefWidth="130"/>
+                    <TableColumn fx:id="colProductsFinalPriceDiscounted" text="Final price discounted" prefWidth="160"/>
+                    <TableColumn fx:id="colProductsStock" text="Stock" prefWidth="100"/>
+                </columns>
+            </TableView>
+
+            <GridPane hgap="15" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" prefWidth="120"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <Label text="ID:" GridPane.rowIndex="0"/>
+                <TextField fx:id="txtID" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Name:" GridPane.rowIndex="1"/>
+                <TextField fx:id="txtName" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Category:" GridPane.rowIndex="2"/>
+                <ComboBox fx:id="cmbCategory" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            </GridPane>
+
+            <HBox spacing="15">
+                <Button fx:id="btnSearch" text="Search" onAction="#onSearch"/>
+                <Button fx:id="btnReset" text="Reset" onAction="#onReset"/>
+            </HBox>
+
+        </VBox>
+    </children>
 </AnchorPane>
