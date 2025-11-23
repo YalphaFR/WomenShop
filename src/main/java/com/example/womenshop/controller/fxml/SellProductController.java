@@ -66,7 +66,7 @@ public class SellProductController extends ModuleController {
 
             Transaction transaction = new Transaction(product, Transaction.TransactionType.SALE, quantity, amount);
             transactionService.registerTransaction(transaction);
-            showAlert("Succès :", "Transaction effectuée. Le produit est vendu");
+            showAlert("Succès", quantity + " unités vendues!\nLa transaction a bien été effectuée");
 
             shopService.addToCapital(amount);
 

@@ -50,7 +50,7 @@ public class PurchaseProductController extends ModuleController {
 
             Transaction transaction = new Transaction(product, Transaction.TransactionType.PURCHASE, quantity, amount);
             transactionService.registerTransaction(transaction);
-            showAlert("Succès", quantity + " unités ajoutées au stock! La transaction a bien été effectuée");
+            showAlert("Succès", quantity + " unités ajoutées au stock!\nLa transaction a bien été effectuée");
 
             this.shopService.addToCapital(-amount);
             onReset();
