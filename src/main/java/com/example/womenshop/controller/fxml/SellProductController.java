@@ -52,11 +52,11 @@ public class SellProductController extends ModuleController {
             Product product = lvProducts.getSelectionModel().getSelectedItem();
 
             if (product == null) {
-                showAlert("Erreur", "Veuillez selectionner un produit");
+                showAlert("Error", "Please select a product");
                 return;
             }
 
-            int quantity = spinStockToSell.getValue(); // ici on récupère la valeur selectionnée dans le spinner
+            int quantity = spinStockToSell.getValue(); // ici, on récupère la valeur selectionnée dans le spinner
             double amount = quantity * product.getFinalSalePrice();
             System.out.println(quantity);
             System.out.println(amount);
@@ -66,14 +66,14 @@ public class SellProductController extends ModuleController {
 
             Transaction transaction = new Transaction(product, Transaction.TransactionType.SALE, quantity, amount);
             transactionService.registerTransaction(transaction);
-            showAlert("Succès", quantity + " unités vendues!\nLa transaction a bien été effectuée");
+            showAlert("Success", quantity + " Units sold!\nThe transaction has been successfully completed.");
 
             shopService.addToCapital(amount);
 
             displayProductDetails(product);
         } catch(Exception e) {
-            showAlert("Erreur", "Une erreur est survenue");
-            System.err.println("Une erreur est survenue: " + e.getMessage());
+            showAlert("Error", "An error has occurred");
+            System.err.println("An error has occurred: " + e.getMessage());
         }
     }
 

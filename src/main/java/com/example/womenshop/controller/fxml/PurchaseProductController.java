@@ -29,7 +29,7 @@ public class PurchaseProductController extends ModuleController {
         cmbCategory.setValue(null);
         txtPurchasePrice.clear();
         spinQuantity.getValueFactory().setValue(1);
-        lblTotalCost.setText("Coût total: 0.00 €");
+        lblTotalCost.setText("Total cost: 0.00 €");
     }
 
     @FXML
@@ -38,7 +38,7 @@ public class PurchaseProductController extends ModuleController {
             Product product = lvProducts.getSelectionModel().getSelectedItem();
 
             if (product == null) {
-                showAlert("Erreur", "Veuillez selectionner un produit");
+                showAlert("Error", "Please select a product");
                 return;
             };
 
@@ -50,12 +50,12 @@ public class PurchaseProductController extends ModuleController {
 
             Transaction transaction = new Transaction(product, Transaction.TransactionType.PURCHASE, quantity, amount);
             transactionService.registerTransaction(transaction);
-            showAlert("Succès", quantity + " unités ajoutées au stock!\nLa transaction a bien été effectuée");
+            showAlert("Success", quantity + " Units added to stock!\nThe transaction was successfully completed.");
 
             this.shopService.addToCapital(-amount);
             onReset();
         } catch (NumberFormatException e) {
-            showAlert("Erreur", "Prix ou quantité invalide");
+            showAlert("Error", "Invalid price or quantity");
         }
     }
 
@@ -95,9 +95,9 @@ public class PurchaseProductController extends ModuleController {
         try {
             double price = Double.parseDouble(txtPurchasePrice.getText());
             int quantity = spinQuantity.getValue();
-            lblTotalCost.setText(String.format("Coût total: %.2f €", price * quantity));
+            lblTotalCost.setText(String.format("Total cost: %.2f €", price * quantity));
         } catch (NumberFormatException e) {
-            lblTotalCost.setText("Coût total: 0.00 €");
+            lblTotalCost.setText("Total cost: 0.00 €");
         }
     }
 
