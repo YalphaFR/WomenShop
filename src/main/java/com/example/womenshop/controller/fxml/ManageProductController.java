@@ -40,7 +40,7 @@ public class ManageProductController extends ModuleController {
         if (selected != null) {
             productService.removeProduct(selected.getId());
             fetchProducts(lvProducts);
-            showAlert("Succès :", "Produit supprimé");
+            showAlert("Success :", "Deleted product");
         }
     }
 
@@ -80,7 +80,7 @@ public class ManageProductController extends ModuleController {
             if (selected == null) {
                 Product p = new Product(category,name, purchasePrice, salePrice, isDiscounted, stock);
                 productService.registerProduct(p);
-                showAlert("Succès :", "produit enregistré");
+                showAlert("Success :", "Registered product");
             } else {
                 selected.setName(name);
                 selected.setCategory(category);
@@ -89,12 +89,12 @@ public class ManageProductController extends ModuleController {
                 selected.setStock(stock);
                 selected.setDiscounted(isDiscounted);
                 productService.updateProductDetails(selected);
-                showAlert("Succès :", "produit modifié");
+                showAlert("Success :", "Modified product");
             }
             onReset();
         } catch (Exception e) {
-            showAlert("Erreur", "Une erreur est survenue");
-            System.err.println("Une erreur est survenue: " + e.getMessage());
+            showAlert("Error", "An error has occurred");
+            System.err.println("An error has occurred: " + e.getMessage());
         }
     }
 

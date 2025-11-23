@@ -54,7 +54,7 @@ public class DisplayShopInformationController extends ModuleController {
             lblStockSellValue.setText("0.00 €");
             lblTotalSales.setText("0.00 €");
             lblTotalPurchases.setText("0.00 €");
-            lblNetProfit.setText("Bénéfice net: 0.00 €");
+            lblNetProfit.setText("Net profit: 0.00 €");
             return;
         }
 
@@ -88,7 +88,7 @@ public class DisplayShopInformationController extends ModuleController {
                 .sum();
         lblTotalPurchases.setText(String.format("%.2f €", totalPurchases));
 
-        lblNetProfit.setText(String.format("Bénéfice net: %.2f €", totalSales - totalPurchases));
+        lblNetProfit.setText(String.format("Net profit: %.2f €", totalSales - totalPurchases));
         lblNetProfit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;");
 
         lblShopCapital.setText(String.format("%.2f €", shopService.getCapital()));

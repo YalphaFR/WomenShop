@@ -65,7 +65,7 @@ public class DisplayProductController extends ModuleController {
             }
             tvProducts.setItems(FXCollections.observableArrayList(filtered));
         } catch (NumberFormatException e) {
-            showAlert("Erreur", "Prix ou quantité invalide");
+            showAlert("Error", "Invalid price or quantity");
         }
     }
 
