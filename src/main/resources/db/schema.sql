@@ -8,7 +8,7 @@ CREATE TABLE shop (
 );
 
 -- Insertion d’un capital initial à 0
-INSERT INTO shop (shop_id, capital) VALUES (1, 50000);
+INSERT INTO shop (shop_id, capital) VALUES (1, 30000);
 
 CREATE TABLE categories (
                             categories_id INT AUTO_INCREMENT PRIMARY KEY,
