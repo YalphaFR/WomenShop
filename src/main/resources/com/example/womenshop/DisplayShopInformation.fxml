@@ -41,7 +41,7 @@
                         <Label fx:id="lblTotalPurchases" style="-fx-font-size: 18px; -fx-text-fill: red;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Stock market value:" GridPane.columnIndex="4" />
                   <Label fx:id="lblStockSellValue" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" />
-                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Store capital:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Store’s cash balance:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                   <Label fx:id="lblShopCapital" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
