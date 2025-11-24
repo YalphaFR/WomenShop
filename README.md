@@ -1,104 +1,108 @@
+# My Project
+
+This project is documented in [French](README.fr.md)
+
 # WomenShop
 
-WomenShop est une application desktop JavaFX permettant de gérer un catalogue de produits, leurs catégories, ainsi que le stock.
-Le projet suit une architecture claire et modulaire (MVC + Services + Repository) afin de garantir maintenabilité et évolutivité.
+WomenShop is a JavaFX desktop application that allows managing a product catalog, their categories, and stock.
+The project follows a clear and modular architecture (MVC + Services + Repository) to ensure maintainability and scalability.
 
 ---
 
-## 📌 Table des matières
+## 📌 Table of Contents
 
-1. Aperçu
+1. Overview
 2. Architecture
-3. Fonctionnalités
+3. Features
 4. Technologies
-5. Structure du projet
-6. Installation & Exécution
-7. Configuration Base de données
-8. Développement & Contribution
-9. Bonnes pratiques
-10. Licence
+5. Project Structure
+6. Installation & Execution
+7. Database Configuration
+8. Development & Contribution
+9. Best Practices
+10. License
 
 ---
 
-## 🖼️ 1. Aperçu
+## 🖼️ 1. Overview
 
-WomenShop est une application JavaFX permettant à un administrateur de :
+WomenShop is a JavaFX application that allows an administrator to:
 
-* visualiser les produits,
-* filtrer les produits (par nom, ID, catégorie),
-* gérer le stock,
-* ajouter, modifier ou supprimer des produits et catégories.
+* view products,
+* filter products (by name, ID, category),
+* manage stock,
+* add, edit, or delete products and categories.
 
-L’UI repose sur FXML + controllers JavaFX, avec navigation gérée par un `SceneManager`.
+The UI is based on FXML + JavaFX controllers, with navigation managed by a `SceneManager`.
 
 ---
 
 ## 🏛️ 2. Architecture
 
-L'application est organisée selon un modèle inspiré de **MVC**, renforcé par une séparation nette :
+The application is organized following an **MVC-inspired model**, reinforced by a clear separation of concerns:
 
-### 📁 Modèle (`model`)
+### 📁 Model (`model`)
 
-Contient les classes métiers :
+Contains business classes:
 `Product`, `Category`, etc.
 
-### 🎨 Vue (`resources/.../*.fxml`)
+### 🎨 View (`resources/.../*.fxml`)
 
-Interfaces JavaFX créées avec SceneBuilder.
+JavaFX interfaces created with SceneBuilder.
 
-### 🎮 Contrôleurs (`controller`)
+### 🎮 Controllers (`controller`)
 
-Contrôleurs liés aux vues.
-Deux sous-packages :
+Controllers linked to views.
+Two sub-packages:
 
 * `controller.base` → abstractions (`BaseController`, `ModuleController`, interfaces)
-* `controller.fxml` → contrôleurs concrets liés aux FXML
+* `controller.fxml` → concrete controllers linked to FXML
 
-### 🧠 Service layer (`service`)
+### 🧠 Service Layer (`service`)
 
-Contient la logique métier :
+Contains business logic:
 
 * validation
-* orchestration entre UI et repository
+* orchestration between UI and repository
 
-### 🗄️ Repository layer (`repository`)
+### 🗄️ Repository Layer (`repository`)
 
-Accès aux données (implémenté via JDBC/MySQL) :
+Data access (implemented via JDBC/MySQL):
 
 * `ProductRepository`
 * `CategoryRepository`
-* Gestion des requêtes SQL + mapping ResultSet → objets
+* Handles SQL queries + mapping ResultSet → objects
 
-### 🗂️ Utilitaires (`util`)
+### 🗂️ Utilities (`util`)
 
-Helpers :
+Helpers:
 
-* `UIUtils` (convertisseurs pour ComboBox/ListView, helpers JavaFX…)
-* Fonctions réutilisables
+* `UIUtils` (converters for ComboBox/ListView, JavaFX helpers…)
+* Reusable functions
 
 ### 🧭 Navigation (`SceneManager`)
 
-Gère le chargement de scènes, centralise les FXML, permet :
+Manages scene loading, centralizes FXML, allows:
 
-* chargement unique des vues,
-* réutilisation des controllers,
-* navigation cohérente.
+* single view loading,
+* controller reuse,
+* consistent navigation.
 
 ---
 
-## ✨ 3. Fonctionnalités
+## ✨ 3. Features
 
-* Affichage des produits
-* Filtre dynamique :
+* Product display
+* Dynamic filtering:
 
-    * par ID
-    * par nom
-    * par catégorie
-* Edition d’un produit
-* Gestion de stock (Spinner)
-* Gestion des catégories
-* Navigation entre modules
-* Helpers UI (affichage d’objets dans ComboBox/ListView)
+    * by ID
+    * by name
+    * by category
+* Product editing
+* Stock management (Spinner)
+* Category management
+* Module navigation
+* UI helpers (display objects in ComboBox/ListView)
 
 ---
 
@@ -114,45 +118,46 @@ Gère le chargement de scènes, centralise les FXML, permet :
 
 ---
 
-## 📂 5. Structure du projet
+## 📂 5. Project Structure
 
-```
+````
 src/
- ├── main/
- │    ├── java/com/example/womenshop/
- │    │    ├── controller/
- │    │    │    ├── base/           // BaseController, ModuleController, interfaces
- │    │    │    └── fxml/           // Contrôleurs liés aux FXML
- │    │    ├── model/               // Product, Category...
- │    │    ├── service/             // Services métier
- │    │    ├── repository/          // DAO / JDBC MySQL
- │    │    ├── util/                // UIUtils, helpers
- │    │    └── SceneManager.java    // Navigation entre scènes
- │    └── resources/com/example/womenshop/
- │         ├── *.fxml               // Vues JavaFX
- │         ├── styles.css
- │         └── images/
- └── test/                          // Futurs tests unitaires
-```
+├── main/
+│    ├── java/com/example/womenshop/
+│    │    ├── controller/
+│    │    │    ├── base/           // BaseController, ModuleController, interfaces
+│    │    │    └── fxml/           // Controllers linked to FXML
+│    │    ├── model/               // Product, Category...
+│    │    ├── service/             // Business services
+│    │    ├── repository/          // DAO / JDBC MySQL
+│    │    ├── util/                // UIUtils, helpers
+│    │    └── SceneManager.java    // Scene navigation
+│    └── resources/com/example/womenshop/
+│         ├── *.fxml               // JavaFX views
+│         ├── styles.css
+│         └── images/
+└── test/                          // Future unit tests
+
+````
 
 ---
 
-## ▶️ 6. Installation & Exécution
+## ▶️ 6. Installation & Execution
 
-### 1. Cloner le projet
+### 1. Clone the project
 
 ```bash
 git clone https://github.com/YalphaFR/WomenShop.git
 cd WomenShop
-```
+````
 
-### 2. Builder
+### 2. Build
 
 ```bash
 mvn clean install
 ```
 
-### 3. Lancer
+### 3. Run
 
 ```bash
 mvn javafx:run
@@ -160,11 +165,11 @@ mvn javafx:run
 
 ---
 
-## 🗄️ 7. Configuration Base de données
+## 🗄️ 7. Database Configuration
 
-1. Créer une base **women_shop**
-2. Importer le script SQL (tables `products`, `categories`, etc.)
-3. Configurer la connexion dans ta classe DBManager :
+1. Create a database **women_shop**
+2. Import the SQL script (tables `products`, `categories`, etc.)
+3. Configure the connection in your DBManager class:
 
 ```java
 private static final String URL = "jdbc:mysql://localhost:3306/women_shop";
@@ -172,46 +177,46 @@ private static final String USER = "root";
 private static final String PASSWORD = "password";
 ```
 
-4. Les repository utilisent JDBC + requêtes préparées pour la sécurité.
+4. The repositories use JDBC + prepared statements for security.
 
 ---
 
-## 👨‍💻 8. Développement & Contribution
+## 👨‍💻 8. Development & Contribution
 
-### ➕ Ajouter une nouvelle vue (module)
+### ➕ Add a new view (module)
 
-1. Créer fichier `Something.fxml`
-2. Ajouter controller `SomethingController` dans `controller.fxml`
-3. Dans `Main`, charger la scène via `SceneManager.loadScene(...)`
-4. Appeler `controller.setSceneManager(...)` et injecter les services nécessaires
-5. Appeler `initData()` si ton controller implémente `ISceneAwareController`
+1. Create `Something.fxml`
+2. Add controller `SomethingController` in `controller.fxml`
+3. In `Main`, load the scene via `SceneManager.loadScene(...)`
+4. Call `controller.setSceneManager(...)` and inject the required services
+5. Call `initData()` if your controller implements `ISceneAwareController`
 
-### ➕ Ajouter une nouvelle fonctionnalité métier
+### ➕ Add a new business feature
 
-* Ajouter la méthode dans `ProductService` ou `CategoryService`
-* Implémenter la partie repository
-* Appeler depuis le controller
-* Mettre à jour la vue si nécessaire
+* Add the method in `ProductService` or `CategoryService`
+* Implement the repository part
+* Call from the controller
+* Update the view if necessary
 
 ### ✔️ Conventions
 
-* Java standard (CamelCase)
-* Architecture modulaire
-* Code UI minimal dans les FXML
-* Logique métier strictement dans les services
+* Standard Java (CamelCase)
+* Modular architecture
+* Minimal UI code in FXML
+* Business logic strictly in services
 
 ---
 
-## 📘 9. Bonnes pratiques du projet
+## 📘 9. Project Best Practices
 
-* Utilisation d'un **SceneManager** pour centraliser les scènes
-* Utilisation d’un **BaseController** pour tout code commun
-* **ModuleController** pour les scènes principales nécessitant un `initData()`
-* `UIUtils` pour réduire les répétitions (ComboBox → setCellFactory, etc.)
-* Repository totalement séparé de la couche vue
-* Utilisation du module‐info → nécessite `opens ... to javafx.fxml`
+* Use a **SceneManager** to centralize scenes
+* Use a **BaseController** for common code
+* **ModuleController** for main scenes requiring `initData()`
+* `UIUtils` to reduce repetition (ComboBox → setCellFactory, etc.)
+* Repository fully separated from the view layer
+* Use `module-info.java` → requires `opens ... to javafx.fxml`
 
-Exemple :
+Example:
 
 ```java
 opens com.example.womenshop.controller.fxml to javafx.fxml;
@@ -220,7 +225,7 @@ opens com.example.womenshop.controller.base to javafx.fxml;
 
 ---
 
-## 📄 10. Licence
+## 📄 10. License
 
 MIT License
 
@@ -243,5 +248,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
----
-
