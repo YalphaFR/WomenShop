@@ -13,5 +13,6 @@ public interface IProductRepository {
     List<Product> getProductsFilterByCategory(Category category);
     Product getProductById(int id);
     Product getProductByName(String name);
+    Product getBestSellingProduct();
 }
 

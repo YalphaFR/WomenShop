@@ -54,6 +54,7 @@ public class ProductFactory {
                         rs.getBoolean("product_discounted"),
                         rs.getInt("product_stock")
                 );
+                break;
 
             default:
                 throw new IllegalStateException("Unknown category: " + category);

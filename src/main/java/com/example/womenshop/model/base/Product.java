@@ -52,11 +52,7 @@ abstract public class Product extends Base {
     public void setStock(int stock) { this.stock = stock; }
 
     public double getFinalSalePrice() {
-        double finalPrice = salePrice;
-        if (discounted) {
-            finalPrice = salePriceDiscounted;
-        }
-        return finalPrice;
+        return discounted ? salePriceDiscounted : salePrice;
     }
 
 

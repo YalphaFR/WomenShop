@@ -2,8 +2,11 @@ package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
+import com.example.womenshop.model.Clothing;
+import com.example.womenshop.model.Shoes;
 import com.example.womenshop.model.base.Product;
 import com.example.womenshop.util.UIUtils;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,8 +33,7 @@ public class DisplayProductController extends ModuleController {
     @FXML private TableColumn<Product, Integer> colProductsSize;
     @FXML private TableColumn<Product, LocalDateTime> colProductsCreatedAt;
     @FXML private TableView<Product> tvProducts;
-    @FXML private TextField txtID;
-    @FXML private TextField txtName;
+    @FXML private TextField txtID,txtName;
 
 
     // EVENTS
@@ -113,9 +115,9 @@ public class DisplayProductController extends ModuleController {
         colProductsPurchasePrice.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
         colProductsSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
         colProductsStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        colProductsSize.setCellValueFactory(new PropertyValueFactory<>("size"));
         colDiscounted.setCellValueFactory(new PropertyValueFactory<>("discounted"));
         colProductsCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        colProductsFinalPriceDiscounted.setCellValueFactory(new PropertyValueFactory<>("finalSalePrice"));
 
         // Récupérer le nom de la catégorie (objet imbriqué)
         colProductsCategoryName.setCellValueFactory(cellData -> {
@@ -127,7 +129,19 @@ public class DisplayProductController extends ModuleController {
             );
         });
 
-        colProductsFinalPriceDiscounted.setCellValueFactory(new PropertyValueFactory<>("finalSalePrice"));
+        colProductsSize.setCellValueFactory(cellData -> {
+            Product p = cellData.getValue();
+
+            if (p instanceof Clothing c) {
+                return new SimpleObjectProperty<>(c.getSize());
+            }
+            if (p instanceof Shoes s) {
+                return new SimpleObjectProperty<>(s.getSize());
+            }
+
+            return new SimpleObjectProperty<>(null); // Accessory → pas de taille
+        });
+
     }
 
 

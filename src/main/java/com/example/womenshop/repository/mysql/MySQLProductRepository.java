@@ -141,12 +141,8 @@ public class MySQLProductRepository implements IProductRepository {
 
             ps.setInt(1, id);
 
-            Product p = null;
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) { // vérifie s'il y a un résultat
-                    p = ProductFactory.createProduct(rs);
-                }
-                return p;
+                return rs.next() ? ProductFactory.createProduct(rs) : null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -163,17 +159,26 @@ public class MySQLProductRepository implements IProductRepository {
 
             ps.setString(1, name);
 
-            Product p = null;
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) { // vérifie s'il y a un résultat
-                    p = ProductFactory.createProduct(rs);
-                }
-                return p;
+                return rs.next() ? ProductFactory.createProduct(rs) : null;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             return null; // en cas d'erreur SQL
+        }
+    }
+
+    @Override
+    public Product getBestSellingProduct() {
+        String sql = "SELECT p.*, c.*, SUM(t.transaction_quantity) AS total_sold FROM product p JOIN category c ON p.category_id = c.category_id JOIN transaction t ON t.product_id = p.product_id WHERE t.transaction_type = 'SALE' GROUP BY p.product_id ORDER BY total_sold DESC LIMIT 1;";
+        try (Connection conn = db.connect();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            return rs.next() ? ProductFactory.createProduct(rs) : null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -223,5 +228,4 @@ public class MySQLProductRepository implements IProductRepository {
             e.printStackTrace();
         }
     }
-
 }

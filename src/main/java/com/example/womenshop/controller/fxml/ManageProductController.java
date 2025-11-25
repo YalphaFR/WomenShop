@@ -50,12 +50,17 @@ public class ManageProductController extends ModuleController {
     @FXML
     private void onDelete() {
         Product selected = lvProducts.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            productService.removeProduct(selected.getId());
-            fetchProducts(lvProducts);
-            showAlert("Success :", "Deleted product");
+
+        if (selected == null) return;
+
+        if (selected.getStock() > 0) {
+            showAlert("Error", "Product cannot be deleted. Stock still available");
+            return;
         }
-    }
+        productService.removeProduct(selected.getId());
+        fetchProducts(lvProducts);
+        showAlert("Success :", "Deleted product");
+        }
 
     @FXML
     private void onFilter() {
@@ -85,9 +90,21 @@ public class ManageProductController extends ModuleController {
             Product selected = lvProducts.getSelectionModel().getSelectedItem();
             String name = txtName.getText();
             Category category = cmbCategory.getValue();
+
             Double salePrice = ParserUtil.parseDoubleOrNull(txtSalePrice.getText());
+            if (salePrice < 0) {
+                showAlert("Error", "Sale price must be a positive number");
+            }
+
             Double purchasePrice = ParserUtil.parseDoubleOrNull(txtPurchasePrice.getText());
-            Integer stock = ParserUtil.parseIntOrNull(txtStock.getText());
+            if (purchasePrice < 0) {
+                showAlert("Error", "Purchase price must be a positive number");
+            }
+
+            if (purchasePrice > salePrice) {
+                showAlert("Error", "Purchase price cannot be greater than sale");
+            }
+
             Double saleDiscountedPrice = ParserUtil.parseDoubleOrNull(txtSaleDiscountedPrice.getText());
             boolean isDiscounted = cmbIsDiscounted.getValue();
             Integer size = ParserUtil.parseIntOrNull(txtSize.getText());
@@ -96,20 +113,30 @@ public class ManageProductController extends ModuleController {
                 Product p = null;
                 switch (category.getName()) {
                     case "Clothing":
-                    case "Clothes":
-                        p = new Clothing(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, stock, size);
+                        if (!(34 <= size && size <= 54)) {
+                            showAlert("Error", "Clothing size must be between 34 and 54");
+                            return;
+                        }
+
+                        p = new Clothing(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, 0, size);
                         break;
                     case "Shoes":
-                        p = new Shoes(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, stock, size);
+                        if (!(36 <= size && size <= 50)) {
+                            showAlert("Error", "Clothing size must be between 36 and 50");
+                            return;
+                        }
+
+                        p = new Shoes(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, 0, size);
                         break;
                     case "Accessory":
-                        p = new Accessory(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, stock);
+                        p = new Accessory(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, 0);
                         break;
 
                 }
                 productService.registerProduct(p);
                 showAlert("Success :", "Registered product");
             } else {
+                Integer stock = ParserUtil.parseIntOrNull(txtStock.getText());
                 selected.setName(name);
                 selected.setCategory(category);
                 selected.setSalePrice(salePrice);
