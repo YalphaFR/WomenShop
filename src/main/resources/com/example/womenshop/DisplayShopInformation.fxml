@@ -46,6 +46,8 @@
                   <Label fx:id="lblShopCurrentCapital" prefHeight="27.0" prefWidth="91.0" style="-fx-font-size: 18px;" text="0.00 €" textFill="#9820dd" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <Label prefHeight="25.0" prefWidth="228.0" text="Store’s initial cash balance:" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                   <Label fx:id="lblShopInitialCapital" prefHeight="25.0" prefWidth="104.0" text="0.00 €" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <Label style="-fx-font-weight: bold;" text="Best-selling product:" GridPane.rowIndex="2" />
+                  <Label fx:id="lblBestSellingProduct" prefHeight="25.0" prefWidth="90.0" text="No product" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
                 <Label fx:id="lblNetProfit" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;" text="Net profit: 0.00 €" />
@@ -60,7 +62,6 @@
                         <TableColumn fx:id="colDate" prefWidth="150.0" text="Date" />
                     </columns>
                 </TableView>
-                <Button fx:id="btnRefresh" onAction="#onRefresh" style="-fx-background-color: #2196F3; -fx-text-fill: white;" text="Refresh the data" />
             </children>
         </VBox>
     </children>

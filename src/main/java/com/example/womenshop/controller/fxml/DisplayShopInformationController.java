@@ -12,11 +12,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public class DisplayShopInformationController extends ModuleController {
 
-    @FXML private Button btnExit, btnRefresh;
-    @FXML private Label lblTotalStock, lblStockPurchaseValue, lblStockSellValue, lblTotalSales, lblTotalPurchases, lblNetProfit, lblShopInitialCapital, lblShopCurrentCapital;
+    @FXML private Button btnExit;
+    @FXML private Label lblTotalStock, lblStockPurchaseValue, lblStockSellValue, lblTotalSales, lblTotalPurchases, lblNetProfit, lblShopInitialCapital, lblShopCurrentCapital, lblBestSellingProduct;
     @FXML private TableView<Transaction> tvTransactions;
     @FXML private TableColumn<Transaction, Integer> colTransactionId;
     @FXML private TableColumn<Transaction, String> colProductName;
@@ -24,13 +25,6 @@ public class DisplayShopInformationController extends ModuleController {
     @FXML private TableColumn<Transaction, Integer> colQuantity;
     @FXML private TableColumn<Transaction, Double> colAmount;
     @FXML private TableColumn<Transaction, LocalDateTime> colDate;
-
-    // optionnel car à chaque fois que la page est montré, on refresh automatiquement
-    @FXML
-    void onRefresh() {
-        calculateStatistics();
-        setupTableView();
-    }
 
     @Override
     public void initData() {
@@ -89,10 +83,12 @@ public class DisplayShopInformationController extends ModuleController {
         lblTotalPurchases.setText(String.format("%.2f €", totalPurchases));
 
         lblNetProfit.setText(String.format("Net profit: %.2f €", totalSales - totalPurchases));
-        //lblNetProfit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;");
 
         lblShopInitialCapital.setText(String.format("%.2f €", shopService.getInitialCapital()));
         lblShopCurrentCapital.setText(String.format("%.2f €", shopService.getCurrentCapital()));
+        lblBestSellingProduct.setText(Optional.ofNullable(productService.findBestSellingProduct())
+                .map(Product::getName)
+                .orElse("No product"));
     }
 
     private void setupTableColumns() {

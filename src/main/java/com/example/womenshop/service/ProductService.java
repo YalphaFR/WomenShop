@@ -40,5 +40,9 @@ public class ProductService {
     public List<Product> filterByCategory(Category category) {
         return repo.getProductsFilterByCategory(category);
     }
+
+    public Product findBestSellingProduct() {
+        return repo.getBestSellingProduct();
+    }
 }
 
