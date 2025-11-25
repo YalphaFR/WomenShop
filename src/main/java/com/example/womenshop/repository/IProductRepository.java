@@ -1,7 +1,7 @@
 package com.example.womenshop.repository;
 
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.model.base.Product;
 
 import java.util.List;
 

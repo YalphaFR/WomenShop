@@ -1,10 +1,7 @@
 package com.example.womenshop.controller.base;
 
-import com.almasb.fxgl.trade.Shop;
 import com.example.womenshop.controller.IRefreshableController;
-import com.example.womenshop.controller.ISceneAwareController;
-import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.model.base.Product;
 import com.example.womenshop.service.ShopService;
 import com.example.womenshop.service.TransactionService;
 import javafx.collections.FXCollections;

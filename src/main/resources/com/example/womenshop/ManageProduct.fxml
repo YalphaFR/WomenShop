@@ -26,9 +26,9 @@
 
     <GridPane hgap="15" vgap="15">
         <columnConstraints>
-            <ColumnConstraints halignment="RIGHT" prefWidth="140" />
-            <ColumnConstraints hgrow="ALWAYS" />
-            <ColumnConstraints prefWidth="120" />
+            <ColumnConstraints halignment="RIGHT" maxWidth="167.0" minWidth="145.0" prefWidth="167.0" />
+            <ColumnConstraints hgrow="ALWAYS" maxWidth="205.0" minWidth="183.0" prefWidth="183.0" />
+            <ColumnConstraints prefWidth="120.0" />
         </columnConstraints>
 
         <Label text="ID:" GridPane.rowIndex="0" />
@@ -47,12 +47,19 @@
         <Label text="Sale price:" GridPane.rowIndex="4" />
         <TextField fx:id="txtSalePrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
-        <Label text="Stock:" GridPane.rowIndex="5" />
-        <TextField fx:id="txtStock" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label text="Stock:" GridPane.rowIndex="9" />
+        <TextField fx:id="txtStock" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
-        <Label text="Discounted:" GridPane.rowIndex="6" />
-        <ComboBox fx:id="cmbIsDiscounted" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Label text="Discounted:" GridPane.rowIndex="5" />
+        <ComboBox fx:id="cmbIsDiscounted" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label text="Sale discounted price:" GridPane.rowIndex="6" />
+      <TextField fx:id="txtSaleDiscountedPrice" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <TextField fx:id="txtSize" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+      <Label text="Size:" GridPane.rowIndex="7" />
       <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
          <RowConstraints />
          <RowConstraints />
          <RowConstraints />

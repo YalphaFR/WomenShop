@@ -2,10 +2,8 @@ package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
-import com.example.womenshop.model.Transaction;
+import com.example.womenshop.model.base.Product;
 import com.example.womenshop.util.UIUtils;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,8 @@ public class DisplayProductController extends ModuleController {
     @FXML private TableColumn<Product, Double> colProductsPurchasePrice;
     @FXML private TableColumn<Product, Double> colProductsSalePrice;
     @FXML private TableColumn<Product, Integer> colProductsStock;
+    @FXML private TableColumn<Product, Integer> colProductsSize;
+    @FXML private TableColumn<Product, LocalDateTime> colProductsCreatedAt;
     @FXML private TableView<Product> tvProducts;
     @FXML private TextField txtID;
     @FXML private TextField txtName;
@@ -50,7 +51,7 @@ public class DisplayProductController extends ModuleController {
             if (!txtID.getText().isEmpty()) {
                 Product p = productService.findProductById(Integer.parseInt(txtID.getText()));
 
-                if (p !=null) {
+                if (p != null) {
                     filtered.add(p);
                 }
 
@@ -112,7 +113,9 @@ public class DisplayProductController extends ModuleController {
         colProductsPurchasePrice.setCellValueFactory(new PropertyValueFactory<>("purchasePrice"));
         colProductsSalePrice.setCellValueFactory(new PropertyValueFactory<>("salePrice"));
         colProductsStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        colProductsSize.setCellValueFactory(new PropertyValueFactory<>("size"));
         colDiscounted.setCellValueFactory(new PropertyValueFactory<>("discounted"));
+        colProductsCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
         // Récupérer le nom de la catégorie (objet imbriqué)
         colProductsCategoryName.setCellValueFactory(cellData -> {

@@ -1,7 +1,8 @@
 package com.example.womenshop.repository;
 
 public interface IShopRepository {
-    double getCapital();
-    void setCapital(double value);
-    void addToCapital(double value);
+    double getInitialCapital();
+
+    double getCurrentCapital();
+    void addToCurrentCapital(double value);
 }

@@ -1,7 +1,7 @@
 package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.controller.base.ModuleController;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.model.base.Product;
 import com.example.womenshop.model.Transaction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +16,7 @@ import java.util.List;
 public class DisplayShopInformationController extends ModuleController {
 
     @FXML private Button btnExit, btnRefresh;
-    @FXML private Label lblTotalStock, lblStockPurchaseValue, lblStockSellValue, lblTotalSales, lblTotalPurchases, lblNetProfit, lblShopCapital;
+    @FXML private Label lblTotalStock, lblStockPurchaseValue, lblStockSellValue, lblTotalSales, lblTotalPurchases, lblNetProfit, lblShopInitialCapital, lblShopCurrentCapital;
     @FXML private TableView<Transaction> tvTransactions;
     @FXML private TableColumn<Transaction, Integer> colTransactionId;
     @FXML private TableColumn<Transaction, String> colProductName;
@@ -89,9 +89,10 @@ public class DisplayShopInformationController extends ModuleController {
         lblTotalPurchases.setText(String.format("%.2f €", totalPurchases));
 
         lblNetProfit.setText(String.format("Net profit: %.2f €", totalSales - totalPurchases));
-        lblNetProfit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;");
+        //lblNetProfit.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;");
 
-        lblShopCapital.setText(String.format("%.2f €", shopService.getCapital()));
+        lblShopInitialCapital.setText(String.format("%.2f €", shopService.getInitialCapital()));
+        lblShopCurrentCapital.setText(String.format("%.2f €", shopService.getCurrentCapital()));
     }
 
     private void setupTableColumns() {
@@ -99,7 +100,7 @@ public class DisplayShopInformationController extends ModuleController {
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colAmount.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        colDate.setCellValueFactory(new PropertyValueFactory<>("date"));
+        colDate.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
         colProductName.setCellValueFactory(cellData -> {
             Product product = cellData.getValue().getProduct(); // prends directement le produit
