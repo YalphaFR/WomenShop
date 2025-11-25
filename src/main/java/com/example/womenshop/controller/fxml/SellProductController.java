@@ -2,11 +2,10 @@ package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.model.base.Product;
 import com.example.womenshop.model.Transaction;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -58,8 +57,6 @@ public class SellProductController extends ModuleController {
 
             int quantity = spinStockToSell.getValue(); // ici, on récupère la valeur selectionnée dans le spinner
             double amount = quantity * product.getFinalSalePrice();
-            System.out.println(quantity);
-            System.out.println(amount);
 
             product.setStock(product.getStock() - quantity);
             productService.updateProductDetails(product);
@@ -68,7 +65,7 @@ public class SellProductController extends ModuleController {
             transactionService.registerTransaction(transaction);
             showAlert("Success", quantity + " Units sold!\nThe transaction has been successfully completed.");
 
-            shopService.addToCapital(amount);
+            shopService.addToCurrentCapital(amount);
 
             displayProductDetails(product);
         } catch(Exception e) {

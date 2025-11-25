@@ -3,6 +3,7 @@ package com.example.womenshop.repository.mysql;
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.model.Category;
 import com.example.womenshop.model.Transaction;
+import com.example.womenshop.model.base.CategoryFactory;
 import com.example.womenshop.repository.ICategoryRepository;
 
 import java.sql.*;
@@ -20,7 +21,7 @@ public class MySQLCategoryRepository implements ICategoryRepository {
 
     @Override
     public void addCategory(Category c) {
-        String sql = "INSERT INTO categories (categories_name, categories_discount_rate) VALUES (?, ?)";
+        String sql = "INSERT INTO category (category_name, category_discount_rate) VALUES (?, ?);";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -30,7 +31,7 @@ public class MySQLCategoryRepository implements ICategoryRepository {
 
             ResultSet keys = ps.getGeneratedKeys();
             if (keys.next()) {
-                c.setId(keys.getInt(1)); // <<< MISE À JOUR DU PRODUCT
+                c.setId(keys.getInt(1)); // MISE À JOUR DU PRODUCT
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,7 +40,7 @@ public class MySQLCategoryRepository implements ICategoryRepository {
 
     @Override
     public void updateCategory(Category c) {
-        String sql = "UPDATE categories SET categories_name=?, categories_discount_rate=? WHERE products_id=?";
+        String sql = "UPDATE category SET category_name=?, category_discount_rate=? WHERE product_id=?;";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, c.getName());
@@ -53,7 +54,7 @@ public class MySQLCategoryRepository implements ICategoryRepository {
 
     @Override
     public void deleteCategory(int id) {
-        String sql = "DELETE FROM categories WHERE categories_id=?";
+        String sql = "DELETE FROM category WHERE category_id=?;";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -65,24 +66,24 @@ public class MySQLCategoryRepository implements ICategoryRepository {
 
     @Override
     public List<Category> getAllCategories() {
-        List<Category> categories = new ArrayList<>();
-        String sql = "SELECT * FROM categories ORDER BY categories_name DESC";
+        List<Category> category = new ArrayList<>();
+        String sql = "SELECT * FROM category ORDER BY category_name DESC;";
 
         try (Connection conn = db.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                categories.add(mapResultSet(rs));
+                category.add(CategoryFactory.createCategory(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return categories;
+        return category;
     }
 
     @Override
     public Category getCategoryById(int id) {
-        String sql = "SELECT * FROM categories WHERE p.products_id = ?";
+        String sql = "SELECT * FROM category WHERE category_id = ?;";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -91,7 +92,7 @@ public class MySQLCategoryRepository implements ICategoryRepository {
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) { // vérifie s'il y a un résultat
-                     c = mapResultSet(rs);
+                     c = CategoryFactory.createCategory(rs);
                 }
                 return c;
             }
@@ -100,14 +101,6 @@ public class MySQLCategoryRepository implements ICategoryRepository {
             e.printStackTrace();
             return null; // en cas d'erreur SQL
         }
-    }
-
-    private Category mapResultSet(ResultSet rs) throws SQLException {
-        return new Category(
-                rs.getInt("categories_id"),
-                rs.getString("categories_name"),
-                rs.getDouble("categories_discount_rate")
-        );
     }
 }
 

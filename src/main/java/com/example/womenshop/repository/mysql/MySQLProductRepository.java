@@ -2,7 +2,10 @@ package com.example.womenshop.repository.mysql;
 
 import com.example.womenshop.dao.DBManager;
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.model.Clothing;
+import com.example.womenshop.model.Shoes;
+import com.example.womenshop.model.base.Product;
+import com.example.womenshop.model.base.ProductFactory;
 import com.example.womenshop.repository.IProductRepository;
 
 import java.sql.*;
@@ -19,16 +22,56 @@ public class MySQLProductRepository implements IProductRepository {
 
     @Override
     public void addProduct(Product p) {
-        String sql = "INSERT INTO products (categories_id, products_name, products_purchase_price, products_sale_price, products_discounted, products_stock) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = db.connect();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        String sql = null;
+        PreparedStatement ps = null;
+        try (Connection conn = db.connect()) {
 
-            ps.setInt(1, p.getCategory().getId());
-            ps.setString(2, p.getName());
-            ps.setDouble(3, p.getPurchasePrice());
-            ps.setDouble(4, p.getSalePrice());
-            ps.setBoolean(5, p.isDiscounted());
-            ps.setInt(6, p.getStock());
+            switch (p.getCategory().getName()) {
+                case "Clothing":
+                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_discounted_price, product_size) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                    ps.setInt(1, p.getCategory().getId());
+                    ps.setString(2, p.getName());
+                    ps.setDouble(3, p.getPurchasePrice());
+                    ps.setDouble(4, p.getSalePrice());
+                    ps.setBoolean(5, p.isDiscounted());
+                    ps.setInt(6, p.getStock());
+                    ps.setDouble(7, p.getSalePriceDiscounted());
+                    ps.setInt(8, ((Clothing) p).getSize());
+                    break;
+
+                case "Shoes":
+                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_discounted_price, product_size) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+                    ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                    ps.setInt(1, p.getCategory().getId());
+                    ps.setString(2, p.getName());
+                    ps.setDouble(3, p.getPurchasePrice());
+                    ps.setDouble(4, p.getSalePrice());
+                    ps.setBoolean(5, p.isDiscounted());
+                    ps.setInt(6, p.getStock());
+                    ps.setDouble(7, p.getSalePriceDiscounted());
+                    ps.setInt(8, ((Shoes) p).getSize());
+                    break;
+
+                case "Accessory":
+                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_discounted_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+                    ps.setInt(1, p.getCategory().getId());
+                    ps.setString(2, p.getName());
+                    ps.setDouble(3, p.getPurchasePrice());
+                    ps.setDouble(4, p.getSalePrice());
+                    ps.setBoolean(5, p.isDiscounted());
+                    ps.setInt(6, p.getStock());
+                    ps.setDouble(7, p.getSalePriceDiscounted());
+                    break;
+
+                default:
+                    throw new IllegalStateException("Unknown category: " + p.getCategory().getName());
+            }
+
             ps.executeUpdate();
 
             ResultSet keys = ps.getGeneratedKeys();
@@ -42,7 +85,7 @@ public class MySQLProductRepository implements IProductRepository {
 
     @Override
     public void deleteProduct(int id) {
-        String sql = "DELETE FROM products WHERE products_id=?";
+        String sql = "DELETE FROM product WHERE product_id=?";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
@@ -54,39 +97,25 @@ public class MySQLProductRepository implements IProductRepository {
 
     @Override
     public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products p JOIN categories c ON p.categories_id = c.categories_id  ORDER BY c.categories_name, p.products_sale_price DESC;";
+        List<Product> product = new ArrayList<>();
+        String sql = "SELECT * FROM product p JOIN category c ON p.category_id = c.category_id  ORDER BY c.category_name, p.product_sale_price DESC;";
 
         try (Connection conn = db.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                Category category = new Category(
-                        rs.getInt("categories_id"),
-                        rs.getString("categories_name"),
-                        rs.getDouble("categories_discount_rate")
-                );
-
-                products.add(new Product(
-                        rs.getInt("products_id"),
-                        category,
-                        rs.getString("products_name"),
-                        rs.getDouble("products_purchase_price"),
-                        rs.getDouble("products_sale_price"),
-                        rs.getBoolean("products_discounted"),
-                        rs.getInt("products_stock")
-                ));
+                product.add(ProductFactory.createProduct(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return products;
+        return product;
     }
 
     @Override
     public List<Product> getProductsFilterByCategory(Category category) {
-        List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products p JOIN categories c ON p.categories_id = c.categories_id WHERE c.categories_id = ? ORDER BY c.categories_name, p.products_sale_price DESC;";
+        List<Product> product = new ArrayList<>();
+        String sql = "SELECT p.*,c.* FROM product p JOIN category c ON p.category_id = c.category_id WHERE c.category_id = ? ORDER BY c.category_name, p.product_sale_price DESC;";
 
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -94,54 +123,31 @@ public class MySQLProductRepository implements IProductRepository {
             ps.setInt(1, category.getId());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                        products.add(new Product(
-                                rs.getInt("products_id"),
-                                category,
-                                rs.getString("products_name"),
-                                rs.getDouble("products_purchase_price"),
-                                rs.getDouble("products_sale_price"),
-                                rs.getBoolean("products_discounted"),
-                                rs.getInt("products_stock")
-                        ));
+                        product.add(ProductFactory.createProduct(rs));
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return products;
+        return product;
     }
 
 
     @Override
     public Product getProductById(int id) {
-        String sql = "SELECT * FROM products p JOIN categories c ON p.categories_id = c.categories_id WHERE p.products_id = ?;";
+        String sql = "SELECT * FROM product WHERE product_id = ?;";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, id);
 
+            Product p = null;
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) { // vérifie s'il y a un résultat
-                    Category category = new Category(
-                            rs.getInt("categories_id"),
-                            rs.getString("categories_name"),
-                            rs.getDouble("categories_discount_rate")
-                    );
-
-                    return new Product(
-                            rs.getInt("products_id"),
-                            category,
-                            rs.getString("products_name"),
-                            rs.getDouble("products_purchase_price"),
-                            rs.getDouble("products_sale_price"),
-                            rs.getBoolean("products_discounted"),
-                            rs.getInt("products_stock")
-                    );
-                } else {
-                    return null; // aucun produit trouvé pour cet id
+                    p = ProductFactory.createProduct(rs);
                 }
+                return p;
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
             return null; // en cas d'erreur SQL
@@ -151,33 +157,18 @@ public class MySQLProductRepository implements IProductRepository {
 
     @Override
     public Product getProductByName(String name) {
-        String sql = "SELECT * FROM products p " +
-                "JOIN categories c ON p.categories_id = c.categories_id WHERE p.products_name = ?";
+        String sql = "SELECT * FROM product p WHERE product_name = ?";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, name);
 
+            Product p = null;
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) { // vérifie s'il y a un résultat
-                    Category category = new Category(
-                            rs.getInt("categories_id"),
-                            rs.getString("categories_name"),
-                            rs.getDouble("categories_discount_rate")
-                    );
-
-                    return new Product(
-                            rs.getInt("products_id"),
-                            category,
-                            rs.getString("products_name"),
-                            rs.getDouble("products_purchase_price"),
-                            rs.getDouble("products_sale_price"),
-                            rs.getBoolean("products_discounted"),
-                            rs.getInt("products_stock")
-                    );
-                } else {
-                    return null; // aucun produit trouvé pour cet id
+                    p = ProductFactory.createProduct(rs);
                 }
+                return p;
             }
 
         } catch (SQLException e) {
@@ -189,19 +180,48 @@ public class MySQLProductRepository implements IProductRepository {
 
     @Override
     public void updateProduct(Product p) {
-        String sql = "UPDATE products SET categories_id=?, products_name=?, products_purchase_price=?, products_sale_price=?, products_discounted=?, products_stock=? WHERE products_id=?";
-        try (Connection conn = db.connect();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, p.getCategory().getId());
-            ps.setString(2, p.getName());
-            ps.setDouble(3, p.getPurchasePrice());
-            ps.setDouble(4, p.getSalePrice());
-            ps.setBoolean(5, p.isDiscounted());
-            ps.setInt(6, p.getStock());
-            ps.setInt(7, p.getId());
-            ps.executeUpdate();
+        String sql = null;
+        PreparedStatement ps = null;
+        try (Connection conn = db.connect()) {
+            if (p instanceof Shoes sh) {
+                sql = "UPDATE product SET category_id=?, product_name=?, product_purchase_price=?, product_sale_price=?, product_discounted=?, product_stock=?, product_size=? WHERE product_id=?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, p.getCategory().getId());
+                ps.setString(2, p.getName());
+                ps.setDouble(3, p.getPurchasePrice());
+                ps.setDouble(4, p.getSalePrice());
+                ps.setBoolean(5, p.isDiscounted());
+                ps.setInt(6, p.getStock());
+                ps.setInt(7, sh.getSize());
+                ps.setInt(8, p.getId());
+                ps.executeUpdate();
+            } else if (p instanceof Clothing cloth) {
+                sql = "UPDATE product SET category_id=?, product_name=?, product_purchase_price=?, product_sale_price=?, product_discounted=?, product_stock=?, product_size=? WHERE product_id=?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, p.getCategory().getId());
+                ps.setString(2, p.getName());
+                ps.setDouble(3, p.getPurchasePrice());
+                ps.setDouble(4, p.getSalePrice());
+                ps.setBoolean(5, p.isDiscounted());
+                ps.setInt(6, p.getStock());
+                ps.setInt(7, cloth.getSize());
+                ps.setInt(8, p.getId());
+                ps.executeUpdate();
+            } else {
+                sql = "UPDATE product SET category_id=?, product_name=?, product_purchase_price=?, product_sale_price=?, product_discounted=?, product_stock=? WHERE product_id=?";
+                ps = conn.prepareStatement(sql);
+                ps.setInt(1, p.getCategory().getId());
+                ps.setString(2, p.getName());
+                ps.setDouble(3, p.getPurchasePrice());
+                ps.setDouble(4, p.getSalePrice());
+                ps.setBoolean(5, p.isDiscounted());
+                ps.setInt(6, p.getStock());
+                ps.setInt(7, p.getId());
+                ps.executeUpdate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

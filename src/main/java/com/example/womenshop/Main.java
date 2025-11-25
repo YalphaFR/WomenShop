@@ -30,8 +30,8 @@ public class Main extends Application {
         // les services
         CategoryService categoryService = new CategoryService(categoryRepository);
         ProductService productService = new ProductService(productRepository);
-        TransactionService transactionService = new TransactionService(transactionRepository, productRepository);
-        ShopService shopService = new ShopService(shopRepository, transactionRepository);
+        TransactionService transactionService = new TransactionService(transactionRepository);
+        ShopService shopService = new ShopService(shopRepository);
 
 
         sceneManager.loadAndInitScene(

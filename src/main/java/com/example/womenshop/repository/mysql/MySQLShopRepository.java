@@ -14,13 +14,13 @@ public class MySQLShopRepository implements IShopRepository {
     }
 
     @Override
-    public double getCapital() {
-        String sql = "SELECT capital FROM shop WHERE shop_id = 1";
+    public double getInitialCapital() {
+        String sql = "SELECT shop_initial_capital FROM shop WHERE shop_id = 1";
         try (Connection conn = db.connect();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            return rs.next() ? rs.getDouble("capital") : 0.0;
+            return rs.next() ? rs.getDouble("shop_initial_capital") : 0.0;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,22 +29,23 @@ public class MySQLShopRepository implements IShopRepository {
     }
 
     @Override
-    public void setCapital(double value) {
-        String sql = "UPDATE shop SET capital = ? WHERE shop_id = 1";
+    public double getCurrentCapital() {
+        String sql = "SELECT shop_current_capital FROM shop WHERE shop_id = 1";
         try (Connection conn = db.connect();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            ps.setDouble(1, value);
-            ps.executeUpdate();
+            return rs.next() ? rs.getDouble("shop_current_capital") : 0.0;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return 0.0;
         }
     }
 
     @Override
-    public void addToCapital(double value) {
-        String sql = "UPDATE shop SET capital = capital + ? WHERE shop_id = 1";
+    public void addToCurrentCapital(double value) {
+        String sql = "UPDATE shop SET shop_current_capital = shop_current_capital + ? WHERE shop_id = 1";
         try (Connection conn = db.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
@@ -56,4 +57,3 @@ public class MySQLShopRepository implements IShopRepository {
         }
     }
 }
-

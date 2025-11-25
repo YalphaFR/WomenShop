@@ -2,8 +2,9 @@ package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.controller.base.ModuleController;
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.model.base.Product;
 import com.example.womenshop.model.Transaction;
+import com.example.womenshop.util.ParserUtil;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -52,7 +53,7 @@ public class PurchaseProductController extends ModuleController {
             transactionService.registerTransaction(transaction);
             showAlert("Success", quantity + " Units added to stock!\nThe transaction was successfully completed.");
 
-            this.shopService.addToCapital(-amount);
+            this.shopService.addToCurrentCapital(-amount);
             onReset();
         } catch (NumberFormatException e) {
             showAlert("Error", "Invalid price or quantity");
@@ -93,7 +94,7 @@ public class PurchaseProductController extends ModuleController {
 
     private void updateTotalCost() {
         try {
-            double price = Double.parseDouble(txtPurchasePrice.getText());
+            double price = ParserUtil.parseDoubleOrNull(txtPurchasePrice.getText());
             int quantity = spinQuantity.getValue();
             lblTotalCost.setText(String.format("Total cost: %.2f €", price * quantity));
         } catch (NumberFormatException e) {

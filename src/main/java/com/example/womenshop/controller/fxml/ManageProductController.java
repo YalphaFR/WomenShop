@@ -1,9 +1,13 @@
 package com.example.womenshop.controller.fxml;
 
 import com.example.womenshop.controller.base.ModuleController;
+import com.example.womenshop.model.Accessory;
 import com.example.womenshop.model.Category;
-import com.example.womenshop.model.Product;
+import com.example.womenshop.model.Clothing;
+import com.example.womenshop.model.Shoes;
+import com.example.womenshop.model.base.Product;
 
+import com.example.womenshop.util.ParserUtil;
 import com.example.womenshop.util.UIUtils;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -17,7 +21,7 @@ public class ManageProductController extends ModuleController {
 
     @FXML private Label lblID;
     @FXML private ListView<Product> lvProducts;
-    @FXML private TextField txtName, txtSalePrice, txtPurchasePrice, txtStock;
+    @FXML private TextField txtName, txtSalePrice, txtPurchasePrice, txtStock, txtSaleDiscountedPrice, txtSize;
     @FXML private ComboBox<Category> cmbCategory;
     @FXML private ComboBox<Boolean> cmbIsDiscounted;
     @FXML private Button btnSave, btnDelete, btnFilter, btnReset, btnExit;
@@ -29,8 +33,17 @@ public class ManageProductController extends ModuleController {
             cmbCategory.setValue(p.getCategory());
             txtSalePrice.setText(String.valueOf(p.getSalePrice()));
             txtPurchasePrice.setText(String.valueOf(p.getPurchasePrice()));
+            txtSaleDiscountedPrice.setText(String.valueOf(p.getSalePriceDiscounted()));
             txtStock.setText(String.valueOf(p.getStock()));
             cmbIsDiscounted.setValue(p.isDiscounted());
+
+            if (p instanceof Clothing c) {
+                txtSize.setText(String.valueOf(c.getSize()));
+            } else if (p instanceof Shoes sh) {
+                txtSize.setText(String.valueOf(sh.getSize()));
+            } else {
+                txtSize.setText(String.valueOf(0));
+            }
         }
     }
 
@@ -72,13 +85,28 @@ public class ManageProductController extends ModuleController {
             Product selected = lvProducts.getSelectionModel().getSelectedItem();
             String name = txtName.getText();
             Category category = cmbCategory.getValue();
-            double salePrice = Double.parseDouble(txtSalePrice.getText());
-            double purchasePrice = Double.parseDouble(txtPurchasePrice.getText());
-            int stock = Integer.parseInt(txtStock.getText());
-            Boolean isDiscounted = cmbIsDiscounted.getValue();
+            Double salePrice = ParserUtil.parseDoubleOrNull(txtSalePrice.getText());
+            Double purchasePrice = ParserUtil.parseDoubleOrNull(txtPurchasePrice.getText());
+            Integer stock = ParserUtil.parseIntOrNull(txtStock.getText());
+            Double saleDiscountedPrice = ParserUtil.parseDoubleOrNull(txtSaleDiscountedPrice.getText());
+            boolean isDiscounted = cmbIsDiscounted.getValue();
+            Integer size = ParserUtil.parseIntOrNull(txtSize.getText());
 
             if (selected == null) {
-                Product p = new Product(category,name, purchasePrice, salePrice, isDiscounted, stock);
+                Product p = null;
+                switch (category.getName()) {
+                    case "Clothing":
+                    case "Clothes":
+                        p = new Clothing(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, stock, size);
+                        break;
+                    case "Shoes":
+                        p = new Shoes(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, stock, size);
+                        break;
+                    case "Accessory":
+                        p = new Accessory(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, stock);
+                        break;
+
+                }
                 productService.registerProduct(p);
                 showAlert("Success :", "Registered product");
             } else {
@@ -87,7 +115,15 @@ public class ManageProductController extends ModuleController {
                 selected.setSalePrice(salePrice);
                 selected.setPurchasePrice(purchasePrice);
                 selected.setStock(stock);
+                selected.setSalePriceDiscounted(saleDiscountedPrice);
                 selected.setDiscounted(isDiscounted);
+
+                if (selected instanceof Clothing c) {
+                    c.setSize(size);
+                } else if (selected instanceof Shoes sh) {
+                    sh.setSize(size);
+                }
+
                 productService.updateProductDetails(selected);
                 showAlert("Success :", "Modified product");
             }
@@ -107,7 +143,9 @@ public class ManageProductController extends ModuleController {
         txtSalePrice.clear();
         txtPurchasePrice.clear();
         txtStock.clear();
+        txtSaleDiscountedPrice.clear();
         cmbIsDiscounted.setValue(null);
+        txtSize.clear();
 
         fetchProducts(lvProducts);
     }

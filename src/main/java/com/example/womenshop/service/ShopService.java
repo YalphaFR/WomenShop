@@ -7,23 +7,21 @@ import com.example.womenshop.repository.ITransactionRepository;
 public class ShopService {
 
     private final IShopRepository repo;
-    private final ITransactionRepository transactionRepository;
 
-    public ShopService(IShopRepository repo, ITransactionRepository transactionRepository) {
+    public ShopService(IShopRepository repo) {
         this.repo = repo;
-        this.transactionRepository = transactionRepository;
     }
 
-    public double getCapital() {
-        return repo.getCapital();
+    public double getInitialCapital() {
+        return repo.getInitialCapital();
     }
 
-    public void setCapital(double v) {
-        repo.setCapital(v);
+    public double getCurrentCapital() {
+        return repo.getCurrentCapital();
     }
 
-    public void addToCapital(double v) {
-        repo.addToCapital(v);
+    public void addToCurrentCapital(double v) {
+        repo.addToCurrentCapital(v);
     }
 }
 

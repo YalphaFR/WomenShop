@@ -23,26 +23,29 @@
                         <ColumnConstraints maxWidth="145.0" minWidth="70.0" prefWidth="88.0" />
                         <ColumnConstraints maxWidth="280.0" minWidth="193.0" prefWidth="193.0" />
                         <ColumnConstraints maxWidth="220.0" minWidth="70.0" prefWidth="78.0" />
-                  <ColumnConstraints maxWidth="267.0" minWidth="80.0" prefWidth="211.0" />
-                  <ColumnConstraints maxWidth="250.0" minWidth="43.0" prefWidth="99.0" />
+                  <ColumnConstraints maxWidth="267.0" minWidth="80.0" prefWidth="220.0" />
+                  <ColumnConstraints maxWidth="250.0" minWidth="43.0" prefWidth="88.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints />
                         <RowConstraints />
+                  <RowConstraints />
                     </rowConstraints>
                     <children>
                         <Label style="-fx-font-weight: bold;" text="Total products in stock:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Label fx:id="lblTotalStock" style="-fx-font-size: 18px;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label fx:id="lblTotalStock" prefHeight="27.0" prefWidth="88.0" style="-fx-font-size: 18px;" text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                         <Label prefHeight="25.0" prefWidth="212.0" style="-fx-font-weight: bold;" text="Inventory book value:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-                        <Label fx:id="lblStockPurchaseValue" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                        <Label fx:id="lblStockPurchaseValue" prefHeight="27.0" prefWidth="81.0" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="0" />
                         <Label style="-fx-font-weight: bold;" text="Total sales:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <Label fx:id="lblTotalSales" style="-fx-font-size: 18px; -fx-text-fill: green;" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="lblTotalSales" prefHeight="27.0" prefWidth="88.0" style="-fx-font-size: 18px; -fx-text-fill: green;" text="0.00 €" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label style="-fx-font-weight: bold;" text="Total purchases:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label fx:id="lblTotalPurchases" style="-fx-font-size: 18px; -fx-text-fill: red;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label fx:id="lblTotalPurchases" prefHeight="27.0" prefWidth="81.0" style="-fx-font-size: 18px; -fx-text-fill: red;" text="0.00 €" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Stock market value:" GridPane.columnIndex="4" />
-                  <Label fx:id="lblStockSellValue" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" />
-                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Store’s cash balance:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Label fx:id="lblShopCapital" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <Label fx:id="lblStockSellValue" prefHeight="27.0" prefWidth="92.0" style="-fx-font-size: 18px;" text="0.00 €" GridPane.columnIndex="5" />
+                  <Label prefHeight="25.0" prefWidth="237.0" style="-fx-font-weight: bold;" text="Store’s current cash balance:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <Label fx:id="lblShopCurrentCapital" prefHeight="27.0" prefWidth="91.0" style="-fx-font-size: 18px;" text="0.00 €" textFill="#9820dd" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <Label prefHeight="25.0" prefWidth="228.0" text="Store’s initial cash balance:" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <Label fx:id="lblShopInitialCapital" prefHeight="25.0" prefWidth="104.0" text="0.00 €" GridPane.columnIndex="5" GridPane.rowIndex="2" />
                     </children>
                 </GridPane>
                 <Label fx:id="lblNetProfit" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2196F3;" text="Net profit: 0.00 €" />
