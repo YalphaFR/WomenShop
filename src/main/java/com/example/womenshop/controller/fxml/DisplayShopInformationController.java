@@ -40,6 +40,9 @@ public class DisplayShopInformationController extends ModuleController {
     }
 
     private void calculateStatistics() {
+        lblShopInitialCapital.setText(String.format("%.2f €", shopService.getInitialCapital()));
+        lblShopCurrentCapital.setText(String.format("%.2f €", shopService.getCurrentCapital()));
+
         List<Product> products = productService.listAllProducts();
 
         if (products == null || products.isEmpty()) {
@@ -84,8 +87,6 @@ public class DisplayShopInformationController extends ModuleController {
 
         lblNetProfit.setText(String.format("Net profit: %.2f €", totalSales - totalPurchases));
 
-        lblShopInitialCapital.setText(String.format("%.2f €", shopService.getInitialCapital()));
-        lblShopCurrentCapital.setText(String.format("%.2f €", shopService.getCurrentCapital()));
         lblBestSellingProduct.setText(Optional.ofNullable(productService.findBestSellingProduct())
                 .map(Product::getName)
                 .orElse("No product"));
