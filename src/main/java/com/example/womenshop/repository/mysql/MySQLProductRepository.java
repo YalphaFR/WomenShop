@@ -28,7 +28,7 @@ public class MySQLProductRepository implements IProductRepository {
 
             switch (p.getCategory().getName()) {
                 case "Clothing":
-                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_discounted_price, product_size) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_size) VALUES (?, ?, ?, ?, ?, ?, ?)";
                     ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
                     ps.setInt(1, p.getCategory().getId());
@@ -37,12 +37,11 @@ public class MySQLProductRepository implements IProductRepository {
                     ps.setDouble(4, p.getSalePrice());
                     ps.setBoolean(5, p.isDiscounted());
                     ps.setInt(6, p.getStock());
-                    ps.setDouble(7, p.getSalePriceDiscounted());
-                    ps.setInt(8, ((Clothing) p).getSize());
+                    ps.setInt(7, ((Clothing) p).getSize());
                     break;
 
                 case "Shoes":
-                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_discounted_price, product_size) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_size) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
                     ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
                     ps.setInt(1, p.getCategory().getId());
@@ -51,12 +50,11 @@ public class MySQLProductRepository implements IProductRepository {
                     ps.setDouble(4, p.getSalePrice());
                     ps.setBoolean(5, p.isDiscounted());
                     ps.setInt(6, p.getStock());
-                    ps.setDouble(7, p.getSalePriceDiscounted());
-                    ps.setInt(8, ((Shoes) p).getSize());
+                    ps.setInt(7, ((Shoes) p).getSize());
                     break;
 
                 case "Accessory":
-                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock, product_discounted_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    sql = "INSERT INTO product (category_id, product_name, product_purchase_price, product_sale_price, product_discounted, product_stock) VALUES (?, ?, ?, ?, ?, ?)";
                     ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
                     ps.setInt(1, p.getCategory().getId());
@@ -65,7 +63,6 @@ public class MySQLProductRepository implements IProductRepository {
                     ps.setDouble(4, p.getSalePrice());
                     ps.setBoolean(5, p.isDiscounted());
                     ps.setInt(6, p.getStock());
-                    ps.setDouble(7, p.getSalePriceDiscounted());
                     break;
 
                 default:

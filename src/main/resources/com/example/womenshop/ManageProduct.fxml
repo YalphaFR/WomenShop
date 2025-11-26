@@ -48,14 +48,14 @@
         <TextField fx:id="txtSalePrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
 
         <Label text="Stock:" GridPane.rowIndex="9" />
-        <TextField fx:id="txtStock" GridPane.columnIndex="1" GridPane.rowIndex="9" />
 
         <Label text="Discounted:" GridPane.rowIndex="5" />
         <ComboBox fx:id="cmbIsDiscounted" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Label text="Sale discounted price:" GridPane.rowIndex="6" />
-      <TextField fx:id="txtSaleDiscountedPrice" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <TextField fx:id="txtSize" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <Label text="Size:" GridPane.rowIndex="7" />
+      <Label fx:id="lblStock" prefHeight="25.0" prefWidth="184.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Label fx:id="lblSaleDiscountedPrice" prefHeight="25.0" prefWidth="203.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <rowConstraints>
          <RowConstraints />
          <RowConstraints />

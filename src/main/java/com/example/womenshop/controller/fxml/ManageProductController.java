@@ -19,9 +19,9 @@ import java.util.List;
 
 public class ManageProductController extends ModuleController {
 
-    @FXML private Label lblID;
+    @FXML private Label lblID, lblStock, lblSaleDiscountedPrice;
     @FXML private ListView<Product> lvProducts;
-    @FXML private TextField txtName, txtSalePrice, txtPurchasePrice, txtStock, txtSaleDiscountedPrice, txtSize;
+    @FXML private TextField txtName, txtSalePrice, txtPurchasePrice, txtSize;
     @FXML private ComboBox<Category> cmbCategory;
     @FXML private ComboBox<Boolean> cmbIsDiscounted;
     @FXML private Button btnSave, btnDelete, btnFilter, btnReset, btnExit;
@@ -33,8 +33,8 @@ public class ManageProductController extends ModuleController {
             cmbCategory.setValue(p.getCategory());
             txtSalePrice.setText(String.valueOf(p.getSalePrice()));
             txtPurchasePrice.setText(String.valueOf(p.getPurchasePrice()));
-            txtSaleDiscountedPrice.setText(String.valueOf(p.getSalePriceDiscounted()));
-            txtStock.setText(String.valueOf(p.getStock()));
+            lblSaleDiscountedPrice.setText(String.valueOf(p.getSalePriceDiscounted()));
+            lblStock.setText(String.valueOf(p.getStock()));
             cmbIsDiscounted.setValue(p.isDiscounted());
 
             if (p instanceof Clothing c) {
@@ -60,6 +60,7 @@ public class ManageProductController extends ModuleController {
         productService.removeProduct(selected.getId());
         fetchProducts(lvProducts);
         showAlert("Success :", "Deleted product");
+        onReset();
         }
 
     @FXML
@@ -94,22 +95,30 @@ public class ManageProductController extends ModuleController {
             Double salePrice = ParserUtil.parseDoubleOrNull(txtSalePrice.getText());
             if (salePrice < 0) {
                 showAlert("Error", "Sale price must be a positive number");
+                return;
             }
 
             Double purchasePrice = ParserUtil.parseDoubleOrNull(txtPurchasePrice.getText());
             if (purchasePrice < 0) {
                 showAlert("Error", "Purchase price must be a positive number");
+                return;
             }
 
             if (purchasePrice > salePrice) {
                 showAlert("Error", "Purchase price cannot be greater than sale");
+                return;
             }
 
-            Double saleDiscountedPrice = ParserUtil.parseDoubleOrNull(txtSaleDiscountedPrice.getText());
             boolean isDiscounted = cmbIsDiscounted.getValue();
             Integer size = ParserUtil.parseIntOrNull(txtSize.getText());
 
-            if (selected == null) {
+            if (selected == null && lblID.getText().isEmpty()) {
+
+                if (category == null) {
+                    showAlert("Error", "Category cannot be empty");
+                    return;
+                }
+
                 Product p = null;
                 switch (category.getName()) {
                     case "Clothing":
@@ -118,7 +127,7 @@ public class ManageProductController extends ModuleController {
                             return;
                         }
 
-                        p = new Clothing(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, 0, size);
+                        p = new Clothing(category,name, purchasePrice, salePrice, isDiscounted, 0, size);
                         break;
                     case "Shoes":
                         if (!(36 <= size && size <= 50)) {
@@ -126,24 +135,31 @@ public class ManageProductController extends ModuleController {
                             return;
                         }
 
-                        p = new Shoes(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, 0, size);
-                        break;
-                    case "Accessory":
-                        p = new Accessory(category,name, purchasePrice, salePrice, saleDiscountedPrice, isDiscounted, 0);
+                        p = new Shoes(category,name, purchasePrice, salePrice, isDiscounted, 0, size);
                         break;
 
+                    case "Accessory":
+                        p = new Accessory(category,name, purchasePrice, salePrice, isDiscounted, 0);
+                        break;
                 }
                 productService.registerProduct(p);
                 showAlert("Success :", "Registered product");
+                onReset();
+
             } else {
-                Integer stock = ParserUtil.parseIntOrNull(txtStock.getText());
+                if (selected == null) {
+                    showAlert("Error", "Please select a valid product");
+                    return;
+                }
+
+                Integer stock = ParserUtil.parseIntOrNull(lblStock.getText());
                 selected.setName(name);
                 selected.setCategory(category);
                 selected.setSalePrice(salePrice);
                 selected.setPurchasePrice(purchasePrice);
                 selected.setStock(stock);
-                selected.setSalePriceDiscounted(saleDiscountedPrice);
                 selected.setDiscounted(isDiscounted);
+                selected.setSalePriceDiscounted(selected.getDiscountPrice());
 
                 if (selected instanceof Clothing c) {
                     c.setSize(size);
@@ -153,8 +169,8 @@ public class ManageProductController extends ModuleController {
 
                 productService.updateProductDetails(selected);
                 showAlert("Success :", "Modified product");
+                displayProductDetails(selected);
             }
-            onReset();
         } catch (Exception e) {
             showAlert("Error", "An error has occurred");
             System.err.println("An error has occurred: " + e.getMessage());
@@ -169,8 +185,8 @@ public class ManageProductController extends ModuleController {
         cmbCategory.setValue(null);
         txtSalePrice.clear();
         txtPurchasePrice.clear();
-        txtStock.clear();
-        txtSaleDiscountedPrice.clear();
+        lblStock.setText("");
+        lblSaleDiscountedPrice.setText("");
         cmbIsDiscounted.setValue(null);
         txtSize.clear();
 
