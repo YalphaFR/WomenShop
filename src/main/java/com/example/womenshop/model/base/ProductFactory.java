@@ -20,7 +20,6 @@ public class ProductFactory {
                         rs.getString("product_name"),
                         rs.getDouble("product_purchase_price"),
                         rs.getDouble("product_sale_price"),
-                        rs.getDouble("product_discounted_price"),
                         rs.getBoolean("product_discounted"),
                         rs.getInt("product_stock"),
                         rs.getInt("product_size")
@@ -35,7 +34,6 @@ public class ProductFactory {
                         rs.getString("product_name"),
                         rs.getDouble("product_purchase_price"),
                         rs.getDouble("product_sale_price"),
-                        rs.getDouble("product_discounted_price"),
                         rs.getBoolean("product_discounted"),
                         rs.getInt("product_stock"),
                         rs.getInt("product_size")
@@ -50,7 +48,6 @@ public class ProductFactory {
                         rs.getString("product_name"),
                         rs.getDouble("product_purchase_price"),
                         rs.getDouble("product_sale_price"),
-                        rs.getDouble("product_discounted_price"),
                         rs.getBoolean("product_discounted"),
                         rs.getInt("product_stock")
                 );

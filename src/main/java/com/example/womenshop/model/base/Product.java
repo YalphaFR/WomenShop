@@ -14,25 +14,23 @@ abstract public class Product extends Base {
     private int stock;
 
     // Récupération dans la bdd
-    public Product(int id, LocalDateTime createdAt, Category category, String name, double purchasePrice, double salePrice, double salePriceDiscounted, boolean discounted, int stock) {
+    public Product(int id, LocalDateTime createdAt, Category category, String name, double purchasePrice, double salePrice, boolean discounted, int stock) {
         super(id, createdAt);
         this.category = category;
         this.name = name;
         this.purchasePrice = purchasePrice;
         this.salePrice = salePrice;
-        this.salePriceDiscounted = salePriceDiscounted;
         this.discounted = discounted;
         this.stock = stock;
 
         // si on a pas défini, prendre selon les règles des catégories d'articles
-        if (discounted && salePriceDiscounted <= 0) {
-            setDiscountPrice();
-        }
+        salePriceDiscounted = getDiscountPrice();
+
     }
 
     // Création dans la bdd
-    public Product(Category category, String name, double purchasePrice, double salePrice, double salePriceDiscounted, boolean discounted, int stock) {
-        this(-1, LocalDateTime.now(), category, name, purchasePrice, salePrice, salePriceDiscounted, discounted, stock);
+    public Product(Category category, String name, double purchasePrice, double salePrice, boolean discounted, int stock) {
+        this(-1, LocalDateTime.now(), category, name, purchasePrice, salePrice, discounted, stock);
     }
 
     // Getters & setters
@@ -56,9 +54,8 @@ abstract public class Product extends Base {
     }
 
 
-    private void setDiscountPrice() {
-        if (category == null) return;
-        salePriceDiscounted = salePrice - (salePrice * category.getDiscountRate());
+    public double getDiscountPrice() {
+        return discounted ? salePrice - (salePrice * category.getDiscountRate()) :  salePrice;
     }
 
     @Override

@@ -30,7 +30,6 @@ CREATE TABLE product (
                           product_name VARCHAR(100) NOT NULL,
                           product_purchase_price DOUBLE NOT NULL CHECK (product_purchase_price >= 0),   -- prix d'achat (constant)
                           product_sale_price DOUBLE NOT NULL CHECK (product_sale_price >= 0),     -- prix de vente normal
-                          product_discounted_price DOUBLE NULL,     -- prix de vente normal
                           product_discounted TINYINT(1) DEFAULT 0,  -- discount actif ?
                           product_stock INT DEFAULT 0,
                           product_size INT NULL,

@@ -9,15 +9,15 @@ public class Clothing extends Product {
 
     // Récupération dans la bdd
     public Clothing(int id, LocalDateTime createdAt, Category category, String name, double purchasePrice,
-                     double salePrice, double salePriceDiscounted, boolean discounted, int stock, int size) {
-        super(id, createdAt, category, name, purchasePrice, salePrice, salePriceDiscounted, discounted, stock);
+                     double salePrice, boolean discounted, int stock, int size) {
+        super(id, createdAt, category, name, purchasePrice, salePrice, discounted, stock);
         this.size = size;
     }
 
     // Création
     public Clothing(Category category, String name, double purchasePrice,
-                     double salePrice, double salePriceDiscounted, boolean discounted, int stock, int size) {
-        super(category, name, purchasePrice, salePrice, salePriceDiscounted, discounted, stock);
+                     double salePrice, boolean discounted, int stock, int size) {
+        super(category, name, purchasePrice, salePrice, discounted, stock);
         this.size = size;
     }
 
